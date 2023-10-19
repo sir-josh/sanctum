@@ -1,11 +1,30 @@
+import { useState } from "react";
 import { Card } from "../../../components/organization/CampaignCard";
+import Link from "next/link";
 
 const Index = () => {
+  const [isActive, setIsActive] = useState(true);
+
   return (
     <div>
-      <h3 className="font-medium mb-4x">Active campaigns</h3>
+      <h3 className="font-medium mb-4">Active campaigns</h3>
 
-      <Card />
+      {isActive ? (
+        <div className="space-y-9">
+          <div className="mb-4">
+            <Link
+              href={"/organization/campaign/create"}
+              className="bg-black px-3 py-2 text-white rounded-md"
+            >
+              Add New
+            </Link>
+          </div>
+
+          <Card />
+        </div>
+      ) : (
+        <p> No campaigns found</p>
+      )}
     </div>
   );
 };

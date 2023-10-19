@@ -1,4 +1,4 @@
-import { Pending } from "../../components/icons";
+import BigCampaignCard from "../../../components/organization/BigCampaignCard";
 
 const people = [
   {
@@ -21,39 +21,13 @@ const people = [
   },
 ];
 
-const Dashboard = () => {
+const ViewCampaign = () => {
   return (
-    <div className="flex flex-col gap-y-5">
-      <div className="flex justify-between items-center">
-        <h2>Hi 0x43c1,</h2>
-        <div className="text-right font-semibold">3 STK</div>
-      </div>
-
-      <div className="flex items-center gap-x-4">
-        <div className="w-[200px] bg-black/90 text-white rounded-xl p-4 shadow flex gap-x-2 items-center">
-          <div className=" w-8 h-8 flex items-center justify-center rounded-full">
-            <Pending />
-          </div>
-          <div>
-            <b>5</b>
-            <p className="text-[14px]">aUSDC Bal</p>
-          </div>
-        </div>
-
-        <div className="w-[200px] bg-black/90 text-white rounded-xl p-4 shadow flex gap-x-2 items-center">
-          <div className=" w-8 h-8 flex items-center justify-center rounded-full">
-            <Pending />
-          </div>
-          <div>
-            <b>5</b>
-            <p className="text-[14px]">aUSDC Donated</p>
-          </div>
-        </div>
-      </div>
-
+    <div>
+      <BigCampaignCard />
       <div>
         <h3 className="mt-5 mb-1 font-medium">Recent Donations</h3>
-        <table className="w-full divide-y divide-gray-200">
+        <table className="w-full max-w-2xl divide-y divide-gray-200">
           <thead className="bg-gray-100 rounded-md overflow-hidden">
             <tr className="">
               <th
@@ -98,4 +72,4 @@ const Dashboard = () => {
     </div>
   );
 };
-export default Dashboard;
+export default ViewCampaign;

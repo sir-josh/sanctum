@@ -7,15 +7,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="flex w-full h-full">
           <aside className="w-[20%] p-6">
             <ul className="flex flex-col gap-y-2">
-              <li className="border-b-2 border rounded-md border-b-black py-3 px-2">
-                <Link href="#">Dashboard</Link>
-              </li>
-              <li className="py-3 px-2">
-                <Link href="#">Register Organization</Link>
-              </li>
-              <li className=" px-2 py-3 ">
-                <Link href="#">Manage Campaign</Link>
-              </li>
+              <Link href="/organization">
+                <li className="border-b-2 border rounded-md border-b-black py-3 px-2">
+                  Dashboard
+                </li>
+              </Link>
+
+              <Link href="/organization/campaign">
+                <li className=" px-2 py-3 ">Manage Campaigns</li>
+              </Link>
             </ul>
           </aside>
 
