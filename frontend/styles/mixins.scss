@@ -1,0 +1,40 @@
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+//font-size mixin
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+//Padding mixin
+@mixin padding($top, $right, $bottom, $left) {
+  padding-top: calculateRem($top);
+  padding-right: calculateRem($right);
+  padding-bottom: calculateRem($bottom);
+  padding-left: calculateRem($left);
+}
+
+//Margin mixin
+@mixin margin($top, $right, $bottom, $left) {
+  margin-top: calculateRem($top);
+  margin-right: calculateRem($right);
+  margin-bottom: calculateRem($bottom);
+  margin-left: calculateRem($left);
+}
+
+@mixin header-text {
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 110%;
+  color: $black;
+}
+
+@mixin body-text {
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 160%;
+  color: $black;
+}

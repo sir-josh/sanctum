@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: $primary;
+  color: $black;
+}
+
+.pancake {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+//Icons
+.icon,
+.envelope {
+  width: 40px;
+}
+
+.mobile-menu {
+  width: 30px;
+}
+
+.star {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.badge {
+  background-color: $orange;
+  color: $black;
+  padding: 6px 16px;
+  @include body-text;
+  font-size: 12px;
+  font-weight: 400;
+  width: fit-content;
+  text-transform: uppercase;
+  border-radius: 15px;
+}
+
+.test {
+  display: none;
+}
+
+.action {
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid $black;
+  background-color: transparent;
+  padding: 10px 30px;
+  border-radius: 40px;
+  font-size: 16px;
+  @include body-text;
+  font-weight: 500;
+}
+
+.cart-btn {
+  width: 20px;
+  height: 20px;
+}
+
+.main-wrapper {
+  padding-top: 95px;
+}
+
+@media (min-width: 1024px) {
+  .mobile-menu {
+    display: none;
+  }
+
+  .test {
+    display: block;
+  }
+}
