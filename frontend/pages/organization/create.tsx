@@ -11,11 +11,11 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import { Spinner } from "../../components/icons";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Dashboard = () => {
   const [org, setOrg] = useState({ name: "", description: "" });
   const [orgId, setOrgId] = useState(null);
-  //const [c, setC] = useState("now");
   const [isCreated, setIsCreated] = useState(false);
   const { address } = useAccount();
   const router = useRouter();
@@ -24,11 +24,7 @@ const Dashboard = () => {
     setOrg({ ...org, [e.target.id]: e.target.value });
   };
 
-  const xL = () => {
-    console.log(orgId);
-  };
-
-  const { config, refetch, isLoading, isError, error } =
+  const { config, refetch, isLoading, isError, error, isSuccess } =
     usePrepareContractWrite({
       //@ts-ignore
       address: connect?.sanctum?.address,
@@ -56,20 +52,6 @@ const Dashboard = () => {
   });
 
   const createOrg = async () => {
-    // const createdOrg = await axios;
-    // .post("/api/organization/create-campaign", {
-    //   ...org,
-    //   address,
-    // })
-    // .then(({ data: createdOrg }) => {
-    //   console.log("first");
-    //   console.log(createdOrg);
-    // })
-    // .then(() => {
-    //   console.log("second");
-    //   writeOnChain();
-    // });
-
     const { data: createdOrg } = await axios.post(
       "/api/organization/create-campaign",
       {
@@ -85,12 +67,11 @@ const Dashboard = () => {
   };
 
   const writeOnChain = async () => {
-    xL();
-    //
     await refetch();
     if (isError) {
       console.log("error:", error);
     }
+
     registerOrg?.();
   };
 
@@ -99,10 +80,11 @@ const Dashboard = () => {
       console.log(orgId);
       writeOnChain();
     }
-  }, [orgId]);
+  }, [orgId, isSuccess]);
 
   return (
     <div>
+      <ConnectButton />
       <h3 className="font-semibold">Enroll your Organization | {orgId}</h3>
 
       {isCreated && !isWaitingTx ? (

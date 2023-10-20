@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function Card() {
+export function CampaignCard() {
   return (
     <Link href="/organization/campaign/2">
       <div className="w-[300px] rounded-md border ">
@@ -37,3 +37,5 @@ export function Card() {
     </Link>
   );
 }
+
+export default CampaignCard;

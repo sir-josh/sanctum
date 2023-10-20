@@ -5,7 +5,7 @@ chain Id to dynamically link the smart contracts */
 const connect = {
   //Sanctum Celo
   sanctum: {
-    address: "0xC47420076a990631b0dc5F96Af3311ae62656d5c",
+    address: "0x61D9EA50478f786E118B625a67EfB9aD96067334",
     abi: [
       {
         inputs: [
@@ -390,6 +390,45 @@ const connect = {
           },
         ],
         name: "registerOrg",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "_badgeAddr",
+            type: "address",
+          },
+        ],
+        name: "setVerificationBadge",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "verificationBadge",
+        outputs: [
+          {
+            internalType: "contract ISanctumBadge",
+            name: "",
+            type: "address",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "string",
+            name: "_orgId",
+            type: "string",
+          },
+        ],
+        name: "verifyOrg",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",

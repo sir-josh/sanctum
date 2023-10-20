@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card } from "../../../components/organization/CampaignCard";
+import CampaignCard from "../../../components/organization/CampaignCard";
 import Link from "next/link";
 
 const Index = () => {
@@ -20,7 +20,7 @@ const Index = () => {
             </Link>
           </div>
 
-          <Card />
+          <CampaignCard />
         </div>
       ) : (
         <p> No campaigns found</p>

@@ -1,7 +1,12 @@
-import { useState } from "react";
-import Layout from "../../components/layouts/OrgLayout";
-import { Pending } from "../../components/icons";
+import { Pending, Spinner } from "../../components/icons";
 import Link from "next/link";
+import { useContext } from "react";
+import { OrgContext } from "../../contexts/OrgContext";
+import {
+  AwaitingCard,
+  Dashboard,
+  MintCard,
+} from "../../components/organization";
 
 const people = [
   {
@@ -25,98 +30,30 @@ const people = [
 ];
 
 const Index = () => {
-  const [isRegistered, setIsRegistered] = useState(false);
-
-  //useEffect to check for registration status
+  const { org, isLoading } = useContext(OrgContext);
 
   return (
     <div>
-      {isRegistered ? (
-        <div className="flex flex-col gap-y-5">
-          <div className="flex justify-between items-center">
-            <h2>Hi Little Angels,</h2>
-            <div className="text-right">3 STK</div>
-          </div>
-
-          <div className="flex items-center gap-x-4">
-            <div className="bg-black/90 text-white rounded-xl p-4 shadow flex gap-x-2 items-center">
-              <div className=" w-8 h-8 flex items-center justify-center rounded-full">
-                <Pending />
-              </div>
-              <div>
-                <b>5</b>
-                <p className="text-[14px]">aUSDC raised</p>
-              </div>
-            </div>
-
-            <div className="bg-black/90 text-white rounded-xl p-4 shadow flex gap-x-2 items-center">
-              <div className=" w-8 h-8 flex items-center justify-center rounded-full">
-                <Pending />
-              </div>
-              <div>
-                <b>5</b>
-                <p className="text-[14px]">3 active campaigns</p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="mt-5 mb-1 font-medium">Recent Donations</h3>
-            <table className="w-full divide-y divide-gray-200">
-              <thead className="bg-gray-100 rounded-md overflow-hidden">
-                <tr className="">
-                  <th
-                    scope="col"
-                    className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-                  >
-                    <span>Address</span>
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-                  >
-                    Amount
-                  </th>
-
-                  <th
-                    scope="col"
-                    className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-                  >
-                    Chain
-                  </th>
-                  <th scope="col" className="relative px-4 py-3.5">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 ">
-                {people.map((person) => (
-                  <tr key={person.name} className="">
-                    <td className="whitespace-nowrap px-4 py-4">
-                      <div className="text-sm text-gray-900 ">
-                        {person.title}
-                      </div>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-4">100</td>
-                    <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                      {person.role}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      {isLoading ? (
+        <div className="w-full h-full flex items-center justify-center">
+          <Spinner />
         </div>
       ) : (
-        <div className="flex flex-col gap-y-3">
-          <h3>Hi there, </h3>
-          <p>You don't seem to have a verified organization yet</p>
-          <Link
-            href={"/organization/create"}
-            className="px-3 py-2 bg-black text-white border-b-2 border rounded-md w-fit"
-          >
-            Create an account
-          </Link>
+        <div>
+          {org?.owner ? (
+            <div>{org?.isApproved ? <Dashboard /> : <AwaitingCard />}</div>
+          ) : (
+            <div className="flex flex-col gap-y-3">
+              <h3>Hi there, </h3>
+              <p>You don't seem to have a verified organization yet</p>
+              <Link
+                href={"/organization/create"}
+                className="px-3 py-2 bg-black text-white border-b-2 border rounded-md w-fit"
+              >
+                Create an account
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </div>

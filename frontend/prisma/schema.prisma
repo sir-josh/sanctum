@@ -16,7 +16,7 @@ model Organization {
   name String @unique
   description String @unique
   isVerified Boolean @default(false)
-
+  isApproved Boolean @default(false)
   campaigns Campaign[]
   createdAt DateTime @default(now())
   @@map("organizations")

@@ -7,5 +7,19 @@ import Envelope from "./Envelope";
 import Author from "./Author";
 import Pending from "./Pending";
 import Spinner from "./Spinner";
+import Verified from "./Verified";
+import Raised from "./Raised";
 
-export { Author, Cart, Logo, Menu, Star, Star2, Spinner, Envelope, Pending };
+export {
+  Author,
+  Cart,
+  Logo,
+  Menu,
+  Star,
+  Star2,
+  Spinner,
+  Envelope,
+  Pending,
+  Verified,
+  Raised,
+};
