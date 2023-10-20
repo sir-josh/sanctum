@@ -27,6 +27,8 @@ const people = [
 const Index = () => {
   const [isRegistered, setIsRegistered] = useState(false);
 
+  //useEffect to check for registration status
+
   return (
     <div>
       {isRegistered ? (

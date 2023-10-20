@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id String @id @default(cuid())
+  owner String //@unique
+  name String @unique
+  description String @unique
+  isVerified Boolean @default(false)
+
+  campaigns Campaign[]
+  createdAt DateTime @default(now())
+  @@map("organizations")
+
+}
+
+model Campaign {
+  id String @id @default(cuid())
+  orgId String @unique
+  name String @unique
+  description String @unique
+  target String
+  
+  createdAt DateTime @default(now())
+
+  organizer Organization? @relation(fields: [orgId], references: [id])
+  @@map("campaigns")
+}
+
+model Donation {
+  id String @id @default(cuid())
+  donor String
+  campaignId String @unique
+  amount String
+  chain String
+  
+  createdAt DateTime @default(now())
+
+  @@map("donations")
+}
