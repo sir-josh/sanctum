@@ -19,6 +19,16 @@ const Dashboard = () => {
     watch: true,
   });
 
+  const { data: orgB } = useContractRead({
+    address: connect.sanctum.address,
+    abi: connect.sanctum.abi,
+    functionName: "orgs",
+    args: [org?.id],
+    watch: true,
+  });
+
+  orgB && console.log(orgB[3]);
+
   return (
     <div className="flex flex-col gap-y-5">
       <div className="flex justify-between items-center">
@@ -54,12 +64,13 @@ const Dashboard = () => {
                 <b>
                   {
                     //@ts-ignore
-                    parseFloat(
-                      ethers?.formatUnits(usdcBal || "0.1", 6)
-                    ).toFixed(2)
-                  }
+                    parseFloat(ethers?.formatUnits(orgB[3] || "0", 6)).toFixed(
+                      2
+                    )
+                  }{" "}
+                  aUSDC
                 </b>
-                <p className="text-[14px]">Total raised yet </p>
+                <p className="text-[14px]">Total Settlement </p>
               </div>
             </div>
 

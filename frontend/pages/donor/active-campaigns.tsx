@@ -6,8 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "../../components/icons";
 
 const ActiveCampaigns = () => {
-  const [isActive, setIsActive] = useState(true);
-
   const fetchCampaigns = async () => {
     const { data } = await axios.get(`/api/donor/get-active-campaigns`);
 
@@ -15,7 +13,7 @@ const ActiveCampaigns = () => {
     return data;
   };
 
-  const { data: campaigns } = useQuery({
+  const { data: campaigns, isLoading } = useQuery({
     queryKey: ["campaigns"],
     queryFn: fetchCampaigns,
   });
@@ -25,19 +23,17 @@ const ActiveCampaigns = () => {
       <div>
         <h3 className="font-medium mb-4">Active campaigns</h3>
 
-        {isActive ? (
-          <div className="grid grid-cols-2 gap-x-8">
-            {campaigns?.length > 0 ? (
-              campaigns.map((campaign) => (
-                <CampaignCard key={campaign?.id} campaign={campaign} donor />
-              ))
-            ) : (
-              <Spinner />
-            )}
-          </div>
-        ) : (
-          <p> No campaigns found</p>
-        )}
+        <div className="grid grid-cols-2 gap-x-8">
+          {isLoading ? (
+            <Spinner />
+          ) : campaigns?.length > 0 ? (
+            campaigns.map((campaign) => (
+              <CampaignCard key={campaign?.id} campaign={campaign} donor />
+            ))
+          ) : (
+            <p> No campaigns found</p>
+          )}
+        </div>
       </div>
     </section>
   );

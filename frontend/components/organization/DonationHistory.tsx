@@ -11,8 +11,6 @@ const DonationHistory = ({ campaignId }) => {
     watch: true,
   });
 
-  console.log(donors);
-
   const sumDonations = (donations) => {
     const total = donations.reduce((acc, donation) => {
       return acc + BigInt(donation.amount);

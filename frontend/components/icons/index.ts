@@ -9,6 +9,7 @@ import Pending from "./Pending";
 import Spinner from "./Spinner";
 import Verified from "./Verified";
 import Raised from "./Raised";
+import Donated from "./Donated";
 
 export {
   Author,
@@ -22,4 +23,5 @@ export {
   Pending,
   Verified,
   Raised,
+  Donated,
 };

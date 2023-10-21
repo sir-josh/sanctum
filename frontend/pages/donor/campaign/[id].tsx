@@ -1,6 +1,6 @@
 import axios from "axios";
 import BigCampaignCard from "../../../components/organization/BigCampaignCard";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import connect from "../../../constants/connect";
 import {
@@ -30,6 +30,24 @@ const Donate = () => {
 
     return data;
   };
+
+  const recordDonationdb = async () => {
+    const { data } = await axios.post("/api/donor/donate-campaign", {
+      campaignId: router?.query?.id,
+      amount: debouncedAmount,
+      donor: address,
+    });
+
+    return data;
+  };
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: recordDonationdb,
+    onSuccess: (d) => {
+      console.log(d);
+      console.log("write to db!");
+    },
+  });
 
   const { data: campaign } = useQuery({
     queryKey: ["campaign", router],
@@ -99,10 +117,7 @@ const Donate = () => {
   const { isLoading: isWaitingSaveTx } = useWaitForTransaction({
     hash: saveData?.hash,
     onSuccess(tx) {
-      //enable save button
-      //setAmount("");
-      //
-      //reloadIsActive();
+      mutate();
       console.log("Successful!!!");
     },
   });

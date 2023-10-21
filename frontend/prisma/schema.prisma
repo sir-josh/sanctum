@@ -40,9 +40,8 @@ model Campaign {
 model Donation {
   id String @id @default(cuid())
   donor String
-  campaignId String @unique
+  campaignId String 
   amount String
-  chain String
   
   createdAt DateTime @default(now())
 

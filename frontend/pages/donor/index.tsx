@@ -1,7 +1,9 @@
 import { useAccount, useContractRead } from "wagmi";
-import { Pending } from "../../components/icons";
+import { Donated, Pending, Raised } from "../../components/icons";
 import connect from "../../constants/connect";
 import { ethers } from "ethers";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const people = [
   {
@@ -34,6 +36,26 @@ const Dashboard = () => {
     args: [address],
   });
 
+  const getDonations = async () => {
+    const { data } = await axios.get(
+      `/api/donor/get-total-donations?donor=${address}`
+    );
+    console.log(data);
+    return data;
+  };
+
+  const { data: donations } = useQuery({
+    queryKey: ["campaign", address],
+    queryFn: getDonations,
+  });
+
+  const getTotal = (donations) => {
+    return donations.reduce(
+      (total, donation) => total + Number(donation?.amount),
+      0
+    );
+  };
+
   return (
     <div className="flex flex-col gap-y-5">
       <div className="flex justify-between items-center">
@@ -44,7 +66,7 @@ const Dashboard = () => {
       <div className="flex items-center gap-x-4">
         <div className="w-[200px] bg-black/90 text-white rounded-xl p-4 shadow flex gap-x-2 items-center">
           <div className=" w-8 h-8 flex items-center justify-center rounded-full">
-            <Pending />
+            <Raised />
           </div>
           <div>
             <b>
@@ -59,11 +81,11 @@ const Dashboard = () => {
 
         <div className="w-[200px] bg-black/90 text-white rounded-xl p-4 shadow flex gap-x-2 items-center">
           <div className=" w-8 h-8 flex items-center justify-center rounded-full">
-            <Pending />
+            <Donated />
           </div>
           <div>
-            <b>5</b>
-            <p className="text-[14px]">aUSDC Donated</p>
+            <b>{donations && getTotal(donations)} aUSDC</b>
+            <p className="text-[14px]"> Donated so far</p>
           </div>
         </div>
       </div>
@@ -90,7 +112,7 @@ const Dashboard = () => {
                 scope="col"
                 className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
               >
-                Chain
+                Date
               </th>
               <th scope="col" className="relative px-4 py-3.5">
                 <span className="sr-only">Edit</span>
@@ -98,14 +120,16 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 ">
-            {people.map((person) => (
-              <tr key={person.name} className="">
+            {donations?.map((donation) => (
+              <tr key={donation?.id} className="">
                 <td className="whitespace-nowrap px-4 py-4">
-                  <div className="text-sm text-gray-900 ">{person.title}</div>
+                  <div className="text-sm text-gray-900 ">{donation.donor}</div>
                 </td>
-                <td className="whitespace-nowrap px-4 py-4">100</td>
+                <td className="whitespace-nowrap px-4 py-4">
+                  {donation?.amount}
+                </td>
                 <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                  {person.role}
+                  12th june
                 </td>
               </tr>
             ))}
