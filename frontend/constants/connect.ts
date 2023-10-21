@@ -5,7 +5,7 @@ chain Id to dynamically link the smart contracts */
 const connect = {
   //Sanctum Celo
   sanctum: {
-    address: "0x61D9EA50478f786E118B625a67EfB9aD96067334",
+    address: "0x3aC8Caa5870eC95A76daB42FF958EAB89e679B5d",
     abi: [
       {
         inputs: [
@@ -270,6 +270,37 @@ const connect = {
             internalType: "contract IAxelarGateway",
             name: "",
             type: "address",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "string",
+            name: "_campaignId",
+            type: "string",
+          },
+        ],
+        name: "getCampaignDonors",
+        outputs: [
+          {
+            components: [
+              {
+                internalType: "address",
+                name: "donor",
+                type: "address",
+              },
+              {
+                internalType: "uint256",
+                name: "amount",
+                type: "uint256",
+              },
+            ],
+            internalType: "struct Sanctum.Donor[]",
+            name: "",
+            type: "tuple[]",
           },
         ],
         stateMutability: "view",

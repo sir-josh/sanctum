@@ -10,17 +10,15 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   console.log(req.body);
-  const { name, target, description, deadline, orgId } = req.body;
+  const { name, description, address } = req.body;
 
   if (req.method === "POST") {
     try {
-      const organization = await prisma.campaign.create({
+      const organization = await prisma.organization.create({
         data: {
+          owner: address,
           name,
-          target,
           description,
-          deadline,
-          orgId,
         },
       });
       res.status(200).json(organization);

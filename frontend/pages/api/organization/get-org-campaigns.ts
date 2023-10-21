@@ -9,21 +9,19 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  console.log(req.body);
-  const { name, target, description, deadline, orgId } = req.body;
-
-  if (req.method === "POST") {
+  const { orgId } = req.query;
+  if (req.method === "GET") {
     try {
-      const organization = await prisma.campaign.create({
-        data: {
-          name,
-          target,
-          description,
-          deadline,
+      const campaigns = await prisma.campaign.findMany({
+        where: {
           orgId,
         },
+        include: {
+          organizer: true,
+        },
       });
-      res.status(200).json(organization);
+
+      res.status(200).json(campaigns);
     } catch (e) {
       res.status(500).json({ msg: e });
     }

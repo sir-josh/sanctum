@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   const createOrg = async () => {
     const { data: createdOrg } = await axios.post(
-      "/api/organization/create-campaign",
+      "/api/organization/create-org",
       {
         ...org,
         address,

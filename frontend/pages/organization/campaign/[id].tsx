@@ -1,4 +1,7 @@
+import axios from "axios";
 import BigCampaignCard from "../../../components/organization/BigCampaignCard";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
 const people = [
   {
@@ -22,11 +25,29 @@ const people = [
 ];
 
 const ViewCampaign = () => {
+  const router = useRouter();
+
+  const fetchCampaigns = async () => {
+    const { data } = await axios.get(
+      `/api/organization/get-campaign?campaignId=${router?.query?.id}`
+    );
+
+    console.log(data);
+    return data;
+  };
+
+  const { data: campaign } = useQuery({
+    queryKey: ["campaign", router],
+    queryFn: fetchCampaigns,
+  });
+
   return (
     <div>
-      <BigCampaignCard />
+      <BigCampaignCard campaign={campaign} />
+
       <div>
         <h3 className="mt-5 mb-1 font-medium">Recent Donations</h3>
+
         <table className="w-full max-w-2xl divide-y divide-gray-200">
           <thead className="bg-gray-100 rounded-md overflow-hidden">
             <tr className="">
@@ -47,7 +68,7 @@ const ViewCampaign = () => {
                 scope="col"
                 className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
               >
-                Chain
+                Date
               </th>
               <th scope="col" className="relative px-4 py-3.5">
                 <span className="sr-only">Edit</span>

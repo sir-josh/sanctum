@@ -1,4 +1,6 @@
-const BigCampaignCard = () => {
+import { Verified } from "../icons";
+
+const BigCampaignCard = ({ campaign }) => {
   return (
     <div className="flex max-w-2xl flex-col items-center rounded-md border md:flex-row">
       <div className="h-full w-full md:h-[200px] md:w-[300px]">
@@ -11,23 +13,10 @@ const BigCampaignCard = () => {
       <div>
         <div className="p-4">
           <h1 className="inline-flex items-center text-lg font-semibold">
-            About Macbook
+            {campaign?.name}
           </h1>
-          <p className="mt-3 text-sm text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
-            debitis?
-          </p>
-          <div className="mt-4">
-            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-              #Macbook
-            </span>
-            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-              #Apple
-            </span>
-            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-              #Laptop
-            </span>
-          </div>
+          <p className="mt-3 text-sm text-gray-600">{campaign?.description}</p>
+
           <div className="mt-3 flex items-center space-x-2">
             <img
               className="inline-block h-8 w-8 rounded-full"
@@ -35,11 +24,8 @@ const BigCampaignCard = () => {
               alt="Dan_Abromov"
             />
             <span className="flex flex-col">
-              <span className="text-[10px] font-medium text-gray-900">
-                Dan Abromov
-              </span>
-              <span className="text-[8px] font-medium text-gray-500">
-                @dan_abromov
+              <span className="text-[10px] font-medium text-gray-900 flex items-center">
+                {campaign?.organizer?.name} <Verified />
               </span>
             </span>
           </div>

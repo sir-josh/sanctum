@@ -17,6 +17,9 @@ export default async function handler(
         where: {
           owner: address,
         },
+        include: {
+          campaign_list: true,
+        },
       });
 
       res.status(200).json(org);

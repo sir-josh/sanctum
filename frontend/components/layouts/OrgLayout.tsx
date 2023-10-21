@@ -26,7 +26,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 <Link href="/organization/campaign">
                   <li
                     className={`${
-                      router.asPath == "/organization/campaign" &&
+                      router.pathname?.includes("organization/campaign") &&
                       "border-b-2 border border-b-black"
                     } rounded-md py-3 px-2`}
                   >
