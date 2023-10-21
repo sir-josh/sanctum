@@ -32,9 +32,6 @@ const Dashboard = () => {
     abi: connect.ausdc.abi,
     functionName: "balanceOf",
     args: [address],
-    onSuccess(d) {
-      console.log(d);
-    },
   });
 
   return (

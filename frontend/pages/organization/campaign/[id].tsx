@@ -2,6 +2,7 @@ import axios from "axios";
 import BigCampaignCard from "../../../components/organization/BigCampaignCard";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import DonationHistory from "../../../components/organization/DonationHistory";
 
 const people = [
   {
@@ -45,51 +46,7 @@ const ViewCampaign = () => {
     <div>
       <BigCampaignCard campaign={campaign} />
 
-      <div>
-        <h3 className="mt-5 mb-1 font-medium">Recent Donations</h3>
-
-        <table className="w-full max-w-2xl divide-y divide-gray-200">
-          <thead className="bg-gray-100 rounded-md overflow-hidden">
-            <tr className="">
-              <th
-                scope="col"
-                className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-              >
-                <span>Address</span>
-              </th>
-              <th
-                scope="col"
-                className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-              >
-                Amount
-              </th>
-
-              <th
-                scope="col"
-                className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-              >
-                Date
-              </th>
-              <th scope="col" className="relative px-4 py-3.5">
-                <span className="sr-only">Edit</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200 ">
-            {people.map((person) => (
-              <tr key={person.name} className="">
-                <td className="whitespace-nowrap px-4 py-4">
-                  <div className="text-sm text-gray-900 ">{person.title}</div>
-                </td>
-                <td className="whitespace-nowrap px-4 py-4">100</td>
-                <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                  {person.role}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <DonationHistory campaignId={campaign?.id} />
     </div>
   );
 };
