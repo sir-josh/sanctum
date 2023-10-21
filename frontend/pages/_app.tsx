@@ -11,6 +11,7 @@ import OrgLayout from "../components/layouts/OrgLayout";
 import DonorLayout from "../components/layouts/DonorLayout";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 export const inter = Inter({
   subsets: ["latin"],
   variable: "--inter",
@@ -40,29 +41,37 @@ const wagmiConfig = createConfig({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
+
+  useEffect(() => setIsLoaded(true), []);
+
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
-        <QueryClientProvider client={queryClient}>
-          <main className={`${inter.className}`}>
-            <Layout>
-              {router?.pathname?.includes("organization") ? (
-                <OrgLayout>
-                  <Component {...pageProps} />
-                </OrgLayout>
-              ) : router?.pathname?.includes("donor") ? (
-                <DonorLayout>
-                  <Component {...pageProps} />
-                </DonorLayout>
-              ) : (
-                <Component {...pageProps} />
-              )}
-            </Layout>
-          </main>
-        </QueryClientProvider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <>
+      {isLoaded && (
+        <WagmiConfig config={wagmiConfig}>
+          <RainbowKitProvider chains={chains}>
+            <QueryClientProvider client={queryClient}>
+              <main className={`${inter.className}`}>
+                <Layout>
+                  {router?.pathname?.includes("organization") ? (
+                    <OrgLayout>
+                      <Component {...pageProps} />
+                    </OrgLayout>
+                  ) : router?.pathname?.includes("donor") ? (
+                    <DonorLayout>
+                      <Component {...pageProps} />
+                    </DonorLayout>
+                  ) : (
+                    <Component {...pageProps} />
+                  )}
+                </Layout>
+              </main>
+            </QueryClientProvider>
+          </RainbowKitProvider>
+        </WagmiConfig>
+      )}
+    </>
   );
 }
 

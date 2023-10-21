@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { Verified } from "../icons";
 
-export function CampaignCard({ campaign }) {
+export function CampaignCard({ campaign, donor = false }) {
   return (
-    <Link href={`/organization/campaign/${campaign?.id}`}>
+    <Link
+      href={`/${donor ? "donor" : "organization"}/campaign/${campaign?.id}`}
+    >
       <div className="rounded-md border hover:shadow-sm">
         <img
           src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"

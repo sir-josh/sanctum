@@ -30,7 +30,7 @@ model Campaign {
   description String
   deadline String 
   target String
-  isActive Boolean @default(false)
+  isActive Boolean @default(true)
   createdAt DateTime @default(now())
 
   organizer Organization @relation(fields: [orgId], references: [id])

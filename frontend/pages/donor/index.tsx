@@ -1,4 +1,7 @@
+import { useAccount, useContractRead } from "wagmi";
 import { Pending } from "../../components/icons";
+import connect from "../../constants/connect";
+import { ethers } from "ethers";
 
 const people = [
   {
@@ -22,10 +25,22 @@ const people = [
 ];
 
 const Dashboard = () => {
+  const { address } = useAccount();
+
+  const { data: usdcBal, isLoading: isLoadingBal } = useContractRead({
+    address: connect.ausdc.address,
+    abi: connect.ausdc.abi,
+    functionName: "balanceOf",
+    args: [address],
+    onSuccess(d) {
+      console.log(d);
+    },
+  });
+
   return (
     <div className="flex flex-col gap-y-5">
       <div className="flex justify-between items-center">
-        <h2>Hi 0x43c1,</h2>
+        <h2>Hi {address},</h2>
         <div className="text-right font-semibold">3 STK</div>
       </div>
 
@@ -35,7 +50,12 @@ const Dashboard = () => {
             <Pending />
           </div>
           <div>
-            <b>5</b>
+            <b>
+              {
+                //@ts-ignore
+                parseFloat(ethers?.formatUnits(usdcBal || "0", 6)).toFixed(2)
+              }
+            </b>
             <p className="text-[14px]">aUSDC Bal</p>
           </div>
         </div>
