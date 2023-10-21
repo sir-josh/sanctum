@@ -14,8 +14,9 @@ const Index = () => {
       `/api/organization/get-org-campaigns?orgId=${org?.id}`
     );
 
-    console.log(data);
-    return data;
+    const actives = data?.filter((d) => d?.isActive == true);
+
+    return actives;
   };
 
   const { data: campaigns } = useQuery({

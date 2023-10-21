@@ -1,5 +1,5 @@
 import axios from "axios";
-import BigCampaignCard from "../../../components/organization/BigCampaignCard";
+import BigCampaignCard from "../../../components/donor/BigCampaignCard";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import connect from "../../../constants/connect";
@@ -7,6 +7,7 @@ import {
   useAccount,
   useContractRead,
   useContractWrite,
+  useNetwork,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
@@ -17,6 +18,7 @@ import { useDebounce } from "../../../hooks/useDebounce";
 
 const Donate = () => {
   const router = useRouter();
+  const { chain } = useNetwork();
   const { address } = useAccount();
   const [amount, setAmount] = useState("");
   const [isApproved, setIsApproved] = useState(false);
@@ -55,8 +57,8 @@ const Donate = () => {
   });
 
   const { data: usdcBal, isLoading: isLoadingBal } = useContractRead({
-    address: connect.ausdc.address,
-    abi: connect.ausdc.abi,
+    address: connect?.ausdc?.[chain?.id]?.address,
+    abi: connect?.ausdc?.[chain?.id]?.abi,
     functionName: "balanceOf",
     args: [address],
     watch: true,
@@ -66,12 +68,12 @@ const Donate = () => {
   const { config: approveConfig, refetch: refetchAp } = usePrepareContractWrite(
     {
       //@ts-ignore
-      address: connect?.ausdc?.address,
+      address: connect?.ausdc?.[chain?.id]?.address,
       //@ts-ignore
-      abi: connect?.ausdc?.abi,
+      abi: connect?.ausdc?.[chain?.id]?.abi,
       functionName: "approve",
       args: [
-        connect?.sanctum?.address,
+        connect?.sanctum?.[chain?.id]?.address,
         ethers.parseUnits(debouncedAmount || "0", 6),
       ],
     }
@@ -97,15 +99,25 @@ const Donate = () => {
   //---- donate ----//
   const { config: saveConfig, refetch } = usePrepareContractWrite({
     //@ts-ignore
-    address: connect?.sanctum?.address,
+    address: connect?.sanctum?.[chain?.id]?.address,
     //@ts-ignore
-    abi: connect?.sanctum?.abi,
+    abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "donateToCampaign",
+    value: ethers.parseEther("2"),
     enabled: false,
-    args: [
-      campaign?.id,
-      Number(ethers.parseUnits(debouncedAmount || "0", 6) || "0"),
-    ],
+    args:
+      chain.id == 44787
+        ? [
+            campaign?.id,
+            Number(ethers.parseUnits(debouncedAmount || "0", 6) || "0"),
+          ]
+        : [
+            "celo",
+            connect?.sanctum?.[44787]?.address,
+            "aUSDC",
+            Number(ethers.parseUnits(debouncedAmount || "0", 6) || "0"),
+            campaign?.id,
+          ],
   });
 
   const {
@@ -129,12 +141,12 @@ const Donate = () => {
 
       <div className="mt-5 mb-1">
         <div className="flex justify-between">
-          <div className="">
+          <div className="w-[50%]">
             <p className="flex gap-x-1">
               <Raised />
               {
                 //@ts-ignore
-                parseFloat(ethers?.formatUnits(usdcBal || "0.1", 6)).toFixed(2)
+                parseFloat(ethers?.formatUnits(usdcBal || "0", 6)).toFixed(2)
               }{" "}
               aUSDC
             </p>
@@ -164,7 +176,6 @@ const Donate = () => {
               </button>
             </div>
           </div>
-          <div></div>
         </div>
       </div>
     </div>

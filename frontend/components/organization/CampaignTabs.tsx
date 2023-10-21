@@ -1,0 +1,58 @@
+import axios from "axios";
+import { useContext, useState } from "react";
+import { OrgContext } from "../../contexts/OrgContext";
+import { useQuery } from "@tanstack/react-query";
+import CompletedTab from "./CompletedTab";
+import ActiveTab from "./ActiveTab";
+
+const CampaignTabs = () => {
+  const [selectedTab, setSelectedTab] = useState<string>("Active");
+
+  const tabs = ["Active", "Completed"];
+
+  const { org } = useContext(OrgContext);
+
+  const getCampaigns = async () => {
+    const { data } = await axios.get(
+      `/api/organization/get-org-campaigns?orgId=${org?.id}`
+    );
+    return data;
+  };
+
+  const { data: campaigns } = useQuery({
+    queryKey: ["campaigns"],
+    queryFn: getCampaigns,
+  });
+
+  //filter campaigns by status
+  const active = campaigns?.filter((d) => d.isActive == true);
+  const completed = campaigns?.filter((d) => d.isActive == false);
+
+  return (
+    <div className="max-w-2xl mt-5 rounded-xl  p-4 shadow">
+      <div className="border rounded-lg p-2 mb-4 flex gap-x-2">
+        {tabs.map((d, i) => (
+          <h3
+            key={i}
+            onClick={() => setSelectedTab(d)}
+            className={`${
+              selectedTab == d && "bg-black/80 text-white"
+            } w-fit rounded-md leading-none p-2 cursor-pointer hover:text-white hover:bg-black/80 active:bg-gray-700  transition-colors`}
+          >
+            {d} Campaigns
+          </h3>
+        ))}
+      </div>
+
+      {/* Tabs */}
+      {selectedTab == "Active" ? (
+        <ActiveTab campaigns={active} />
+      ) : selectedTab == "Completed" ? (
+        <CompletedTab campaigns={completed} />
+      ) : (
+        <div> Loading.. </div>
+      )}
+    </div>
+  );
+};
+export default CampaignTabs;

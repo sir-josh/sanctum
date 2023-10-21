@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useNetwork } from "wagmi";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const { chain } = useNetwork();
+  console.log(router?.pathname);
   return (
     <section className="pt-32 pb-24 px-[60px] h-full">
       <div className="flex gap-x-24 w-[80%] h-full">
@@ -23,9 +26,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               <Link href="/donor/active-campaigns">
                 <li
                   className={`${
-                    router.pathname?.includes("donor/active-campaign") ||
-                    (router.pathname?.includes("donor/campaign") &&
-                      "border-b-2 border border-b-black")
+                    (router?.pathname == "/donor/active-campaigns" ||
+                      router?.pathname?.includes("donor/campaign")) &&
+                    "border-b-2 border border-b-black"
                   } rounded-md py-3 px-2`}
                 >
                   Active Campaigns
@@ -34,9 +37,26 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </ul>
           </aside>
 
-          <main className="card w-[70%]">
-            <section>{children}</section>
-          </main>
+          {chain?.unsupported ? (
+            <div className="card w-[70%]">
+              <div className="text-center">
+                <h3 className="text-red-400 font-bold text-xl">
+                  Wrong Network
+                </h3>
+
+                <div>
+                  <p>Kindly switch to Polygon, Scroll, Optimism or Celo</p>
+                  <ul>
+                    <li></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <main className="card w-[70%]">
+              <section>{children}</section>
+            </main>
+          )}
         </div>
       </div>
     </section>

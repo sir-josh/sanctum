@@ -1,37 +1,17 @@
-import { useAccount, useContractRead } from "wagmi";
+import { useAccount, useContractRead, useNetwork } from "wagmi";
 import { Donated, Pending, Raised } from "../../components/icons";
 import connect from "../../constants/connect";
 import { ethers } from "ethers";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-const people = [
-  {
-    name: "John Doe",
-    title: "Front-end Developer",
-    department: "Engineering",
-    email: "john@devui.com",
-    role: "Developer",
-    image:
-      "https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80",
-  },
-  {
-    name: "Jane Doe",
-    title: "Back-end Developer",
-    department: "Engineering",
-    email: "jane@devui.com",
-    role: "CTO",
-    image:
-      "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
-  },
-];
+import formatDateDb from "../../helpers/formatDateDb";
 
 const Dashboard = () => {
   const { address } = useAccount();
-
+  const { chain } = useNetwork();
   const { data: usdcBal, isLoading: isLoadingBal } = useContractRead({
-    address: connect.ausdc.address,
-    abi: connect.ausdc.abi,
+    address: connect?.ausdc?.[chain?.id]?.address,
+    abi: connect?.ausdc?.[chain?.id]?.abi,
     functionName: "balanceOf",
     args: [address],
   });
@@ -59,7 +39,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-y-5">
       <div className="flex justify-between items-center">
-        <h2>Hi {address},</h2>
+        <h2>Hi {address.substring(0, 8)},</h2>
         <div className="text-right font-semibold">3 STK</div>
       </div>
 
@@ -123,13 +103,15 @@ const Dashboard = () => {
             {donations?.map((donation) => (
               <tr key={donation?.id} className="">
                 <td className="whitespace-nowrap px-4 py-4">
-                  <div className="text-sm text-gray-900 ">{donation.donor}</div>
+                  <div className="text-sm text-gray-900 ">
+                    {donation?.donor.substring(0, 8)}
+                  </div>
                 </td>
                 <td className="whitespace-nowrap px-4 py-4">
                   {donation?.amount}
                 </td>
                 <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                  12th june
+                  {formatDateDb(donation?.createdAt)}
                 </td>
               </tr>
             ))}

@@ -1,13 +1,15 @@
-import { useContractRead } from "wagmi";
+import { useContractRead, useNetwork } from "wagmi";
 import connect from "../../constants/connect";
 import { ethers } from "ethers";
 
-const DonationHistory = ({ campaignId }) => {
+const DonationHistory = ({ campaign }) => {
+  const { chain } = useNetwork();
+
   const { data: donors, isLoading: isLoadingBal } = useContractRead({
-    address: connect.sanctum.address,
-    abi: connect.sanctum.abi,
+    address: connect?.sanctum?.[chain?.id]?.address,
+    abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "getCampaignDonors",
-    args: [campaignId],
+    args: [campaign?.id],
     watch: true,
   });
 
@@ -22,11 +24,15 @@ const DonationHistory = ({ campaignId }) => {
     ).toFixed(2);
   };
 
+  console.log(donors);
   return (
-    <div className="mt-5">
+    <div className="mt-5 max-w-2xl">
       <div className="flex items-center justify-between mb-3">
         <p className="font-medium">Recent Donations</p>
-        <p>Total Raised: {donors && sumDonations(donors)}</p>
+        <p className="font-medium">
+          {" "}
+          Raised: {donors && sumDonations(donors)} / {campaign?.target}
+        </p>
       </div>
       <table className="w-full divide-y divide-gray-200">
         <thead className="bg-gray-100 rounded-md overflow-hidden">
@@ -48,10 +54,7 @@ const DonationHistory = ({ campaignId }) => {
               scope="col"
               className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
             >
-              Chain
-            </th>
-            <th scope="col" className="relative px-4 py-3.5">
-              <span className="sr-only">Edit</span>
+              Date
             </th>
           </tr>
         </thead>
@@ -68,7 +71,7 @@ const DonationHistory = ({ campaignId }) => {
                 aUSDC
               </td>
               <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                12 Jan
+                {donor?.date}
               </td>
             </tr>
           ))}

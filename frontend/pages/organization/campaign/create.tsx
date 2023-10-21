@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { forwardRef, useContext, useEffect, useState } from "react";
 import {
   useAccount,
   useContractWrite,
+  useNetwork,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
@@ -11,20 +12,41 @@ import axios from "axios";
 import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+type Props = {
+  value: string;
+  onClick: () => void;
+};
 
 const Create = () => {
   const { org } = useContext(OrgContext);
   const { address } = useAccount();
   const [campaignDb, setCampaignDb] = useState(null);
   const [isCreated, setIsCreated] = useState(false);
+  const [deadline, setDeadline] = useState(new Date());
+
   const [campaign, setCampaign] = useState({
     name: "",
     target: "",
     description: "",
-    deadline: "",
   });
 
   const router = useRouter();
+  const { chain } = useNetwork();
+
+  // eslint-disable-next-line react/display-name
+  const ExpiryDatePicker = forwardRef(({ value, onClick }: Props, ref) => (
+    <input
+      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+      value={value}
+      onClick={onClick}
+      //@ts-ignore
+      ref={ref}
+      readOnly
+    />
+  ));
 
   const {
     config,
@@ -33,11 +55,16 @@ const Create = () => {
     isSuccess: IsRefreshed,
   } = usePrepareContractWrite({
     //@ts-ignore
-    address: connect?.sanctum?.address,
+    address: connect?.sanctum?.[chain?.id]?.address,
     //@ts-ignore
-    abi: connect?.sanctum?.abi,
+    abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "createCampaign",
-    args: [org?.id, campaignDb?.id, campaignDb?.target, campaignDb?.deadline],
+    args: [
+      org?.id,
+      campaignDb?.id,
+      campaignDb?.target,
+      deadline?.getTime() / 1000,
+    ],
     enabled: false,
   });
 
@@ -60,6 +87,7 @@ const Create = () => {
   const createCampaignDb = async () => {
     const { data } = await axios.post("/api/organization/create-campaign", {
       ...campaign,
+      deadline,
       orgId: org?.id,
       address,
     });
@@ -151,14 +179,14 @@ const Create = () => {
             >
               Deadline
             </label>
-            <div className="mt-2">
-              <input
-                onChange={(e) => handleInput(e)}
-                className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                type="text"
-                placeholder="target"
-                id="deadline"
-              ></input>
+            <div className="mt-2 w-full">
+              <DatePicker
+                selected={deadline}
+                //@ts-ignore
+                customInput={<ExpiryDatePicker />}
+                //@ts-ignore
+                onChange={(date) => setDeadline(date)}
+              />
             </div>
           </div>
           <button

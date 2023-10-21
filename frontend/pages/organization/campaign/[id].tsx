@@ -3,6 +3,7 @@ import BigCampaignCard from "../../../components/organization/BigCampaignCard";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import DonationHistory from "../../../components/organization/DonationHistory";
+import { useNetwork } from "wagmi";
 
 const ViewCampaign = () => {
   const router = useRouter();
@@ -12,7 +13,6 @@ const ViewCampaign = () => {
       `/api/organization/get-campaign?campaignId=${router?.query?.id}`
     );
 
-    console.log(data);
     return data;
   };
 
@@ -25,7 +25,7 @@ const ViewCampaign = () => {
     <div>
       <BigCampaignCard campaign={campaign} />
 
-      <DonationHistory campaignId={campaign?.id} />
+      <DonationHistory campaign={campaign} />
     </div>
   );
 };
