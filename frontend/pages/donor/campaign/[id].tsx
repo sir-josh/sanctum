@@ -12,7 +12,7 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import { ethers } from "ethers";
-import { Raised } from "../../../components/icons";
+import { Raised, Spinner } from "../../../components/icons";
 import { useEffect, useState } from "react";
 import { useDebounce } from "../../../hooks/useDebounce";
 
@@ -144,14 +144,19 @@ const Donate = () => {
         <div className="mt-1 mb-1 w-full">
           <div className="flex justify-between">
             <div className="w-[80%]">
-              <p className="flex gap-x-1">
+              <div className="flex gap-x-1">
                 <Raised />
-                {
-                  //@ts-ignore
-                  parseFloat(ethers?.formatUnits(usdcBal || "0", 6)).toFixed(2)
-                }{" "}
-                aUSDC
-              </p>
+
+                <b>
+                  {
+                    //@ts-ignore
+                    parseFloat(ethers?.formatUnits(usdcBal || "0", 6)).toFixed(
+                      2
+                    )
+                  }{" "}
+                  aUSDC
+                </b>
+              </div>
 
               <div className="mt-5 flex flex-col gap-y-5">
                 <div>
@@ -160,6 +165,7 @@ const Donate = () => {
                   </label>
                   <div className="mt-1">
                     <input
+                      disabled={isLoading || isApproving || isApprovingTx}
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="text"
                       placeholder="5"
@@ -172,9 +178,13 @@ const Donate = () => {
                 <button
                   onClick={() => approve?.()}
                   type="button"
-                  className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className=" w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
-                  Donate
+                  {isLoading || isApproving || isApprovingTx ? (
+                    <Spinner load />
+                  ) : (
+                    "Donate"
+                  )}
                 </button>
               </div>
             </div>
@@ -184,4 +194,5 @@ const Donate = () => {
     </div>
   );
 };
+
 export default Donate;

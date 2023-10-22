@@ -7,7 +7,7 @@ const connect = {
   sanctum: {
     //celo
     44787: {
-      address: "0x2D7eb02fd9304cE4E8ecF4CF2607562E0De73f82",
+      address: "0x3d9252F600F21C875496fd8CCcAa3B0001f2250c",
       abi: [
         {
           inputs: [
@@ -89,6 +89,11 @@ const connect = {
             {
               internalType: "uint256",
               name: "amount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "date",
               type: "uint256",
             },
           ],
@@ -299,8 +304,64 @@ const connect = {
                   name: "amount",
                   type: "uint256",
                 },
+                {
+                  internalType: "uint256",
+                  name: "date",
+                  type: "uint256",
+                },
               ],
               internalType: "struct Sanctum.Donor[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_orgId",
+              type: "string",
+            },
+          ],
+          name: "getOrgCampaigns",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "org",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "id",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "target",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "raised",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "deadline",
+                  type: "uint256",
+                },
+                {
+                  internalType: "bool",
+                  name: "isActive",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct Sanctum.Campaign[]",
               name: "",
               type: "tuple[]",
             },
@@ -481,9 +542,10 @@ const connect = {
         },
       ],
     },
+    //---- Terminals ---- //
     //fantom testnet
     4002: {
-      address: "0xf0C4E5c36aE71CE13624a7af8812A9216b76Ac6B",
+      address: "0xea1E64F0E8D5d6dF7A2b6dA1e58E790Efc56393E",
       abi: [
         {
           inputs: [

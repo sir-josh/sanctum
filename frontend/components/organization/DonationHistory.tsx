@@ -1,6 +1,7 @@
 import { useContractRead, useNetwork } from "wagmi";
 import connect from "../../constants/connect";
 import { ethers } from "ethers";
+import formatDate from "../../helpers/formatDate";
 
 const DonationHistory = ({ campaign }) => {
   const { chain } = useNetwork();
@@ -41,7 +42,7 @@ const DonationHistory = ({ campaign }) => {
               scope="col"
               className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
             >
-              <span>Address</span>
+              <span>Donor</span>
             </th>
             <th
               scope="col"
@@ -62,16 +63,18 @@ const DonationHistory = ({ campaign }) => {
           {donors?.map((donor, i: number) => (
             <tr key={i} className="">
               <td className="whitespace-nowrap px-4 py-4">
-                <div className="text-sm text-gray-900 ">{donor?.donor}</div>
+                <div className="text-sm text-gray-900 ">
+                  {donor?.donor?.substring(0, 8)}
+                </div>
               </td>
-              <td className="whitespace-nowrap px-4 py-4">
+              <td className="whitespace-nowrap text-sm px-4 py-4">
                 {parseFloat(
                   ethers?.formatUnits(donor?.amount || "0", 6)
                 ).toFixed(2)}{" "}
                 aUSDC
               </td>
               <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                {donor?.date}
+                {formatDate(donor?.date)}
               </td>
             </tr>
           ))}

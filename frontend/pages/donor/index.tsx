@@ -72,51 +72,53 @@ const Dashboard = () => {
 
       <div>
         <h3 className="mt-5 mb-2 font-medium">Recent Donations</h3>
-        <table className="max-w-2xl rounded-lg divide-y divide-gray-200 border">
-          <thead className="bg-gray-100 rounded-md overflow-hidden">
-            <tr className="">
-              <th
-                scope="col"
-                className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-              >
-                <span>Campaign</span>
-              </th>
-              <th
-                scope="col"
-                className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-              >
-                Amount
-              </th>
+        <div className="max-w-2xl">
+          <table className="w-full rounded-lg divide-y divide-gray-200 border">
+            <thead className="bg-gray-100 rounded-md overflow-hidden">
+              <tr className="">
+                <th
+                  scope="col"
+                  className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
+                >
+                  <span>Campaign</span>
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
+                >
+                  Amount
+                </th>
 
-              <th
-                scope="col"
-                className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
-              >
-                Date
-              </th>
-              <th scope="col" className="relative px-4 py-3.5">
-                <span className="sr-only">Edit</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200 ">
-            {donations?.map((donation) => (
-              <tr key={donation?.id} className="">
-                <td className="whitespace-nowrap px-4 py-4">
-                  <div className="text-sm text-gray-900 ">
-                    {donation?.campaign?.name}
-                  </div>
-                </td>
-                <td className="whitespace-nowrap px-4 py-4">
-                  {donation?.amount}
-                </td>
-                <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                  {formatDateDb(donation?.createdAt)}
-                </td>
+                <th
+                  scope="col"
+                  className="px-4 py-3.5 text-left text-sm font-normal text-gray-900"
+                >
+                  Date
+                </th>
+                <th scope="col" className="relative px-4 py-3.5">
+                  <span className="sr-only">Edit</span>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-200 ">
+              {donations?.map((donation) => (
+                <tr key={donation?.id} className="">
+                  <td className="whitespace-nowrap px-4 py-4">
+                    <div className="text-sm text-gray-900 ">
+                      {donation?.campaign?.name}
+                    </div>
+                  </td>
+                  <td className="whitespace-nowrap text-sm px-4 py-4">
+                    {donation?.amount} aUSDC
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                    {formatDateDb(donation?.createdAt)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

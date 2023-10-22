@@ -14,6 +14,7 @@ import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Spinner } from "../../../components/icons";
 
 type Props = {
   value: string;
@@ -24,9 +25,8 @@ const Create = () => {
   const { org } = useContext(OrgContext);
   const { address } = useAccount();
   const [campaignDb, setCampaignDb] = useState(null);
-  const [isCreated, setIsCreated] = useState(false);
+  const [isWriting, setIsWriting] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
-
   const [campaign, setCampaign] = useState({
     name: "",
     target: "",
@@ -51,7 +51,6 @@ const Create = () => {
   const {
     config,
     refetch,
-    isLoading,
     isSuccess: IsRefreshed,
   } = usePrepareContractWrite({
     //@ts-ignore
@@ -85,6 +84,7 @@ const Create = () => {
   });
 
   const createCampaignDb = async () => {
+    setIsWriting(true);
     const { data } = await axios.post("/api/organization/create-campaign", {
       ...campaign,
       deadline,
@@ -92,7 +92,6 @@ const Create = () => {
       address,
     });
 
-    setIsCreated(true);
     setCampaignDb(data);
   };
 
@@ -128,6 +127,7 @@ const Create = () => {
             </label>
             <div className="mt-2">
               <input
+                disabled={isWriting || isCreating || isWaitingTx}
                 onChange={(e) => handleInput(e)}
                 className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                 type="text"
@@ -145,6 +145,7 @@ const Create = () => {
             </label>
             <div className="mt-2">
               <input
+                disabled={isWriting || isCreating || isWaitingTx}
                 onChange={(e) => handleInput(e)}
                 className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                 type="text"
@@ -163,6 +164,7 @@ const Create = () => {
             </label>
             <div className="mt-2">
               <textarea
+                disabled={isWriting || isCreating || isWaitingTx}
                 onChange={(e) => handleInput(e)}
                 rows={5}
                 id="description"
@@ -190,10 +192,15 @@ const Create = () => {
           </div>
           <button
             onClick={() => createCampaignDb()}
+            disabled={isWriting || isCreating || isWaitingTx}
             type="button"
-            className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+            className=" w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80 "
           >
-            Register
+            {isWriting || isCreating || isWaitingTx ? (
+              <Spinner load />
+            ) : (
+              "Create"
+            )}
           </button>
         </div>
       </div>

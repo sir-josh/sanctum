@@ -18,8 +18,8 @@
     "react-datepicker": "^4.21.0",
     "react-dom": "^18.2.0",
     "sass": "^1.69.3",
-    "viem": "~1.16.3",
-    "wagmi": "^1.4.1"
+    "viem": "^1.16.6",
+    "wagmi": "^1.4.5"
   },
   "devDependencies": {
     "@types/node": "^18.16.12",
