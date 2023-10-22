@@ -35,7 +35,7 @@ We created and deployed 2 smart contracts in Scroll Sepolia:
 
 Here are some of the recent transactions on Sanctum:
 
-1. Cregex [View txn on Gnosis Chiado](https://gnosis-chiado.blockscout.com/tx/0xb20c4fb6af21901533b19c1ac5ce36a7e2775efcc7049e6f44f747f77927d2e0) 
+1. Cregex [View txn on sepolia-blockscout.scroll.io scan](https://gnosis-chiado.blockscout.com/tx/0xb20c4fb6af21901533b19c1ac5ce36a7e2775efcc7049e6f44f747f77927d2e0) 
 
 
 This is an original work by our team. We built our solution using: **`NextJs/Typescript`**, **`Wagmi`**, **`Rainbowkit`**, **`Prisma`**, **`TailwindCSS`**, **`Remix`**, **`PostgresSQL`** and **`Axelar SDK`**.
