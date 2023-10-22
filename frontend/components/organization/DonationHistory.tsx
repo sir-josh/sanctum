@@ -4,11 +4,12 @@ import { ethers } from "ethers";
 import formatDate from "../../helpers/formatDate";
 import Campaign from "../../types/campaign";
 import Donation from "../../types/Donation";
+import { Spinner } from "../icons";
 
 const DonationHistory = ({ campaign }: { campaign: Campaign }) => {
   const { chain } = useNetwork();
 
-  const { data: donors, isLoading: isLoadingBal } = useContractRead({
+  const { data: donors, isLoading: isLoadingD } = useContractRead({
     //@ts-ignore
     address: connect?.sanctum?.[chain?.id]?.address,
     //@ts-ignore
@@ -30,7 +31,6 @@ const DonationHistory = ({ campaign }: { campaign: Campaign }) => {
     ).toFixed(2);
   };
 
-  console.log(donors);
   return (
     <div className="mt-5 max-w-2xl">
       <div className="flex items-center justify-between mb-3">
@@ -65,6 +65,7 @@ const DonationHistory = ({ campaign }: { campaign: Campaign }) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 ">
+          {isLoadingD && <Spinner />}
           {donors?.map((donor, i: number) => (
             <tr key={i} className="">
               <td className="whitespace-nowrap px-4 py-4">

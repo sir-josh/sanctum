@@ -3,7 +3,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import type { AppProps } from "next/app";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { celoAlfajores, fantomTestnet } from "wagmi/chains";
+import { scrollSepolia, filecoinCalibration } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { Inter } from "next/font/google";
 import Layout from "../components/layouts/Layout";
@@ -24,7 +24,7 @@ const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string;
 const queryClient = new QueryClient();
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [celoAlfajores, fantomTestnet],
+  [scrollSepolia, filecoinCalibration],
   [publicProvider()]
 );
 

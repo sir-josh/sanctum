@@ -53,7 +53,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-y-5">
       <div className="flex justify-between items-center">
-        <h2 className="flex items-center gap-x-1 font-semibold">
+        <h2 className="flex items-center gap-x-1 font-medium text-lg">
           {org?.name} {org?.isVerified && <Verified />}{" "}
         </h2>
       </div>

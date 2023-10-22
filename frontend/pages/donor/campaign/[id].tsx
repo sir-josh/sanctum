@@ -110,18 +110,19 @@ const Donate = () => {
     abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "donateToCampaign",
     //@ts-ignore
-    value: chain?.id == 44787 ? "0" : ethers.parseEther("2"),
+    value: chain?.id == 534351 ? "0" : ethers.parseEther("2"),
     enabled: false,
     args:
-      //if user is on Celo
-      chain?.id == 44787
+      //if user is on Scroll
+      chain?.id == 534351
         ? [
             campaign?.id,
             Number(ethers.parseUnits(debouncedAmount || "0", 6) || "0"),
           ]
-        : [
-            "celo",
-            connect?.sanctum?.[44787]?.address,
+        : //else use Axelar to route donation
+          [
+            "scroll",
+            connect?.sanctum?.[534351]?.address,
             "aUSDC",
             Number(ethers.parseUnits(debouncedAmount || "0", 6) || "0"),
             campaign?.id,
@@ -144,7 +145,7 @@ const Donate = () => {
 
   return (
     <div>
-      <h3 className="mb-4 font-medium">Donate Now </h3>
+      <h3 className="mb-4 font-medium text-lg">Donate Now </h3>
       <div className="flex gap-x-8">
         <BigCampaignCard campaign={campaign} />
 
@@ -195,9 +196,16 @@ const Donate = () => {
                 </div>
 
                 <button
+                  disabled={
+                    isWaitingSaveTx ||
+                    isLoading ||
+                    isApproving ||
+                    isSaving ||
+                    isApprovingTx
+                  }
                   onClick={() => approve?.()}
                   type="button"
-                  className=" w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className=" w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80 disabled:bg-black/80"
                 >
                   {isWaitingSaveTx ||
                   isLoading ||

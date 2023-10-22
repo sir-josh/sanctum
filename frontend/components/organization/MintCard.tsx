@@ -10,6 +10,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import connect from "../../constants/connect";
+import { Spinner } from "../icons";
 
 const MintCard = () => {
   //@ts-ignore
@@ -45,7 +46,11 @@ const MintCard = () => {
     args: [org?.id],
   });
 
-  const { write: mintVerification, data } = useContractWrite(config);
+  const {
+    write: mintVerification,
+    data,
+    isLoading: isMinting,
+  } = useContractWrite(config);
 
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
@@ -62,10 +67,14 @@ const MintCard = () => {
       <p>Mint your Verification NFT to start creating campaigns.</p>
 
       <button
-        className="bg-black text-white px-3 py-2 rounded-md mt-2"
+        className="mt-4 w-[200px] items-center justify-center rounded-md bg-black px-3 py-2 font-semibold leading-7 text-white hover:bg-black/80 "
         onClick={() => mintVerification?.()}
       >
-        Mint Verification
+        {isLoading || isMinting ? (
+          <Spinner load />
+        ) : (
+          <span> Mint Verification </span>
+        )}
       </button>
     </div>
   );

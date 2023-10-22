@@ -16,7 +16,8 @@ contract Terminal is AxelarExecutable {
     gasService = IAxelarGasService(gasReceiver_);
   }
 
-  function donateToSource(
+  //donate to source
+  function donateToCampaign(
     string memory destinationChain,
     string memory destinationAddress,
     string memory symbol,
@@ -47,10 +48,11 @@ contract Terminal is AxelarExecutable {
   }
 }
 
-//celo
-// gateway 0xe432150cce91c13a887f7D836923d5597adD8E31
-// service 0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6
-
 //ftm
 // gateway 0x97837985Ec0494E7b9C71f5D3f9250188477ae14
+// service 0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6
+// 0xf0C4E5c36aE71CE13624a7af8812A9216b76Ac6B
+
+//celo
+// gateway 0xe432150cce91c13a887f7D836923d5597adD8E31
 // service 0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6

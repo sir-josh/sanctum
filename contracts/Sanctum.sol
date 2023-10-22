@@ -5,16 +5,20 @@ import { AxelarExecutable } from "@axelar-network/axelar-gmp-sdk-solidity/contra
 import { IAxelarGateway } from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGateway.sol";
 import { IERC20 } from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IERC20.sol";
 import { IAxelarGasService } from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGasService.sol";
+import "./ISanctumBadge.sol";
 
 contract Sanctum is AxelarExecutable {
   IAxelarGasService public immutable gasService;
   address public owner;
   address public aUSDC;
+
+  ISanctumBadge public verificationBadge;
+
   struct Organization {
     string id;
     address owner;
-    uint joined;
-    uint totalRaised;
+    uint256 joined;
+    uint256 totalRaised;
     bool isActive;
     bool isVerified;
   }
@@ -22,15 +26,16 @@ contract Sanctum is AxelarExecutable {
   struct Campaign {
     string org;
     string id;
-    uint target;
-    uint raised;
-    uint deadline;
+    uint256 target;
+    uint256 raised;
+    uint256 deadline;
     bool isActive;
   }
 
   struct Donor {
     address donor;
-    uint amount;
+    uint256 amount;
+    uint256 date;
   }
 
   //stores organizations
@@ -74,15 +79,13 @@ contract Sanctum is AxelarExecutable {
   function approveOrg(string calldata _org) external onlyOwner {
     Organization storage organization = orgs[_org];
     organization.isActive = true;
-
-    //todo: mint soulbound NFT to owner
   }
 
   function createCampaign(
     string calldata _orgId,
     string calldata _campaignId,
-    uint _target,
-    uint _deadline
+    uint256 _target,
+    uint256 _deadline
   ) external {
     Organization memory org = orgs[_orgId];
 
@@ -112,19 +115,56 @@ contract Sanctum is AxelarExecutable {
   }
 
   //for users donating on sanctum chain
-  function donateToCampaign(string memory _campaignId, uint _amount) public {
+  function donateToCampaign(string memory _campaignId, uint256 _amount) public {
     Campaign storage campaign = campaigns[_campaignId];
 
     require(campaign.isActive == true, "Invalid campaign");
 
     IERC20(aUSDC).transferFrom(msg.sender, address(this), _amount);
-    campaign.raised = campaign.raised + _amount;
 
-    //loop thru n check
+    unchecked {
+      campaign.raised = campaign.raised + _amount;
+    }
+
     //update donor list
     campaignDonors[_campaignId].push(
-      Donor({ donor: msg.sender, amount: _amount })
+      Donor({ donor: msg.sender, amount: _amount, date: block.timestamp })
     );
+  }
+
+  //get all campaigns for an organization
+  function getOrgCampaigns(
+    string calldata _orgId
+  ) external view returns (Campaign[] memory) {
+    Campaign[] memory camps = new Campaign[](orgCampaigns[_orgId].length);
+    for (uint256 i = 0; i < orgCampaigns[_orgId].length; i++) {
+      camps[i] = orgCampaigns[_orgId][i];
+    }
+
+    return camps;
+  }
+
+  //get all donors for a campaign
+  function getCampaignDonors(
+    string calldata _campaignId
+  ) external view returns (Donor[] memory) {
+    Donor[] memory donors = new Donor[](campaignDonors[_campaignId].length);
+    for (uint256 i = 0; i < campaignDonors[_campaignId].length; i++) {
+      donors[i] = campaignDonors[_campaignId][i];
+    }
+
+    return donors;
+  }
+
+  function verifyOrg(string calldata _orgId) external {
+    Organization storage org = orgs[_orgId];
+    require(org.isActive, "Not Active");
+    require(!org.isVerified, "Already verified");
+    require(org.owner == msg.sender, "Not permitted");
+
+    //call verification contract to mint badge
+    verificationBadge.safeMint(org.owner);
+    org.isVerified = true;
   }
 
   function withdrawDonation(string calldata _campaignId) external {
@@ -145,6 +185,7 @@ contract Sanctum is AxelarExecutable {
     org.totalRaised = org.totalRaised + campaign.raised;
   }
 
+  //users donating from terminal chains
   function _executeWithToken(
     string calldata,
     string calldata,
@@ -165,13 +206,20 @@ contract Sanctum is AxelarExecutable {
     campaign.raised = campaign.raised + amount;
 
     //update donor list
-    campaignDonors[campaignId].push(Donor({ donor: donor, amount: amount }));
+    campaignDonors[campaignId].push(
+      Donor({ donor: donor, amount: amount, date: block.timestamp })
+    );
+  }
+
+  function setVerificationBadge(address _badgeAddr) external onlyOwner {
+    verificationBadge = ISanctumBadge(_badgeAddr);
   }
 }
 
 //celo
 // gateway 0xe432150cce91c13a887f7D836923d5597adD8E31
 // service 0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6
+// aUSDC 0x254d06f33bDc5b8ee05b2ea472107E300226659A
 // 0xe56e24249d62473F8a4d237E3504b5Eec2116B6e
 
 //ftm

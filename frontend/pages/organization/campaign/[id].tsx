@@ -16,14 +16,14 @@ const ViewCampaign = () => {
     return data;
   };
 
-  const { data: campaign } = useQuery({
+  const { data: campaign, isLoading } = useQuery({
     queryKey: ["campaign", router],
     queryFn: fetchCampaigns,
   });
 
   return (
     <div>
-      <BigCampaignCard campaign={campaign} />
+      <BigCampaignCard campaign={campaign} isLoadingC={isLoading} />
 
       <DonationHistory campaign={campaign} />
     </div>

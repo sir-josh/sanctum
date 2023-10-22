@@ -114,7 +114,7 @@ const Create = () => {
 
   return (
     <div>
-      <h3>Create new campaign</h3>
+      <h3 className="font-medium text-lg">Create new campaign</h3>
 
       <div className="w-[50%] mt-4">
         <div className="space-y-5">
@@ -168,7 +168,7 @@ const Create = () => {
                 onChange={(e) => handleInput(e)}
                 rows={5}
                 id="description"
-                placeholder="We have young minds from Lagos, Nigeria who we're actively supporting in school fees and educational accessories."
+                placeholder="We have young minds in our Lagos community, who we're actively supporting in school fees and educational accessories."
                 className="flex w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
               ></textarea>
             </div>

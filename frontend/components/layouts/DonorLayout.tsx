@@ -45,7 +45,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </h3>
 
                 <div>
-                  <p>Kindly switch to Polygon, Scroll, Optimism or Celo</p>
+                  <p>
+                    Kindly switch to Polygon Scroll, ZkEVM, Optimism or Celo
+                  </p>
                   <ul>
                     <li></li>
                   </ul>

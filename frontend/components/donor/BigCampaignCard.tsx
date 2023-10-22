@@ -1,12 +1,4 @@
-import axios from "axios";
 import { Verified } from "../icons";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction,
-} from "wagmi";
-import connect from "../../constants/connect";
 import formatDateDb from "../../helpers/formatDateDb";
 import Campaign from "../../types/campaign";
 import campaignImg from "../../public/img/campaign.png";
@@ -14,53 +6,6 @@ import orgImg from "../../public/img/org.jpg";
 import Image from "next/image";
 
 const BigCampaignCard = ({ campaign }: { campaign: Campaign }) => {
-  const queryClient = useQueryClient();
-
-  //update db
-  const deactivateCampaign = async () => {
-    const { data } = await axios.post("/api/organization/withdraw-donation", {
-      campaignId: campaign?.id,
-    });
-
-    console.log(data);
-    return data;
-  };
-
-  const { mutate, isLoading } = useMutation({
-    mutationFn: deactivateCampaign,
-    onSuccess: (d) => {
-      console.log(d);
-      console.log("write to db!");
-      queryClient.invalidateQueries({ queryKey: ["campaign"] });
-    },
-  });
-
-  //blockchain
-  const { config } = usePrepareContractWrite({
-    //@ts-ignore
-    address: connect?.sanctum?.address,
-    //@ts-ignore
-    abi: connect?.sanctum?.abi,
-    functionName: "withdrawDonation",
-    args: [campaign?.id],
-    enabled: false,
-  });
-
-  const {
-    write: withdraw,
-    isLoading: isWithdrawing,
-    data,
-  } = useContractWrite(config);
-
-  const { isLoading: isApprovingTx } = useWaitForTransaction({
-    hash: data?.hash,
-    async onSuccess(tx) {
-      if (tx) {
-        mutate();
-      }
-    },
-  });
-
   return (
     <div className="flex w-full flex-col items-center rounded-md border ">
       <div className="h-full w-full md:h-[200px]">

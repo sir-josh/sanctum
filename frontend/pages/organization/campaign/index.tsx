@@ -5,6 +5,8 @@ import { OrgContext } from "../../../contexts/OrgContext";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Campaign from "../../../types/campaign";
+import { AwaitingCard } from "../../../components/organization";
+import { Spinner } from "../../../components/icons";
 
 const Index = () => {
   //@ts-ignore
@@ -23,7 +25,7 @@ const Index = () => {
     return actives;
   };
 
-  const { data: campaigns } = useQuery({
+  const { data: campaigns, isLoading } = useQuery({
     queryKey: ["campaigns", org],
     queryFn: fetchCampaigns,
   });
@@ -43,10 +45,14 @@ const Index = () => {
     );
   }
 
+  if (!org?.isVerified) {
+    return <AwaitingCard />;
+  }
+
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
-        <h3 className="font-medium">Active campaigns</h3>
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="font-medium text-lg">Active campaigns</h3>
         {/* @ts-ignore */}
         {campaigns?.length > 0 && (
           <Link
@@ -57,6 +63,9 @@ const Index = () => {
           </Link>
         )}
       </div>
+
+      {isLoading && <Spinner />}
+
       {/* @ts-ignore */}
       {campaigns?.length > 0 ? (
         <div className="grid lg:grid-cols-2 gap-8">

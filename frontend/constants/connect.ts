@@ -3,11 +3,11 @@ Givvie support multiple chains by using their
 chain Id to dynamically link the smart contracts */
 
 const connect = {
-  //Sanctum
+  //---- Sanctum ----//
   sanctum: {
-    //celo
-    44787: {
-      address: "0x3d9252F600F21C875496fd8CCcAa3B0001f2250c",
+    //scroll
+    534351: {
+      address: "0x60a9cf1599dD6B5Be36b0CFB60323B6a68A0a03F",
       abi: [
         {
           inputs: [
@@ -542,10 +542,11 @@ const connect = {
         },
       ],
     },
+
     //---- Terminals ---- //
-    //fantom testnet
-    4002: {
-      address: "0xea1E64F0E8D5d6dF7A2b6dA1e58E790Efc56393E",
+    //filecoin
+    314159: {
+      address: "0x82eca38Be85ec9C0A9555f406C703537820db883",
       abi: [
         {
           inputs: [
@@ -702,8 +703,8 @@ const connect = {
     },
   },
   ausdc: {
-    //celo
-    44787: {
+    //scroll
+    534351: {
       address: "0x254d06f33bDc5b8ee05b2ea472107E300226659A",
       abi: [
         {
@@ -981,9 +982,9 @@ const connect = {
         },
       ],
     },
-    //fantom testnet
-    4002: {
-      address: "0x75Cc4fDf1ee3E781C1A3Ee9151D5c6Ce34Cf5C61",
+    //filecoin
+    314159: {
+      address: "0xCb7996d51Ff923b2C6076d42C065a6ca000D32A1",
       abi: [
         {
           inputs: [
