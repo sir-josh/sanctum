@@ -3,7 +3,7 @@ import Logo from "./icons/Logo";
 import styles from "../styles/Navbar.module.scss";
 import Menu from "../components/icons/Menu";
 import { useRouter } from "next/router";
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 const Navbar = () => {
   const { pathname } = useRouter();
   return (
@@ -37,11 +37,7 @@ const Navbar = () => {
         <div className={styles.menu}>
           <Menu />
 
-          <div className={styles.links}>
-            <div>
-              <Link href="/dashboard">Dashboard</Link>
-            </div>
-          </div>
+          <ConnectButton />
         </div>
       </div>
     </nav>
