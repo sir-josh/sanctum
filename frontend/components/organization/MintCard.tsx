@@ -12,6 +12,7 @@ import axios from "axios";
 import connect from "../../constants/connect";
 
 const MintCard = () => {
+  //@ts-ignore
   const { org } = useContext(OrgContext);
 
   const queryClient = useQueryClient();

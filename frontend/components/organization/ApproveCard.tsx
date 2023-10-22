@@ -10,8 +10,9 @@ import {
 import connect from "../../constants/connect";
 import { Spinner } from "../icons";
 import { useRouter } from "next/router";
+import Org from "../../types/Org";
 
-const ApproveCard = ({ org }) => {
+const ApproveCard = ({ org }: { org: Org }) => {
   const queryClient = useQueryClient();
   const { chain } = useNetwork();
   const approveOrg = async ({

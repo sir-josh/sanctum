@@ -9,6 +9,7 @@ import {
 } from "../../components/organization";
 
 const Index = () => {
+  //@ts-ignore
   const { org, isLoading } = useContext(OrgContext);
 
   return (
@@ -24,7 +25,7 @@ const Index = () => {
           ) : (
             <div className="flex flex-col gap-y-3">
               <h3>Hi there, </h3>
-              <p>You don't seem to have a verified organization yet</p>
+              <p>You don&apos;t seem to have a verified organization yet</p>
               <Link
                 href={"/organization/create"}
                 className="px-3 py-2 bg-black text-white border-b-2 border rounded-md w-fit"

@@ -1,11 +1,11 @@
-import { createContext } from "react";
+import { ReactNode, createContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useAccount } from "wagmi";
 
 export const OrgContext = createContext(null);
 
-export const OrgContextProvider = ({ children }) => {
+export const OrgContextProvider = ({ children }: { children: ReactNode }) => {
   const { address } = useAccount();
 
   const authCheck = async () => {
@@ -22,7 +22,10 @@ export const OrgContextProvider = ({ children }) => {
   });
 
   return (
-    <OrgContext.Provider value={{ org, isLoading }}>
+    <OrgContext.Provider
+      //@ts-ignore
+      value={{ org, isLoading }}
+    >
       {children}
     </OrgContext.Provider>
   );

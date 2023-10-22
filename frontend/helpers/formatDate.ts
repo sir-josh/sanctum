@@ -8,7 +8,7 @@ const formatDate = (date: string): string => {
     hour: "numeric",
     minute: "numeric",
   };
-
+  //@ts-ignore
   return myDate.toLocaleDateString("en-US", options);
 };
 

@@ -3,10 +3,9 @@ import { useAccount } from "wagmi";
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "../../components/icons";
 import { ApproveCard } from "../../components/organization";
+import Org from "../../types/Org";
 
 const Approval = () => {
-  const { address } = useAccount();
-
   const getPending = async () => {
     const { data } = await axios.get(`/api/organization/get-pending`);
 
@@ -24,7 +23,7 @@ const Approval = () => {
       {isLoading && <Spinner />}
 
       <div>
-        {pendingOrgs?.map((org, id) => (
+        {pendingOrgs?.map((org: Org, id: number) => (
           <ApproveCard key={id} org={org} />
         ))}
       </div>

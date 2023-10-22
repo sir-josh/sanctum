@@ -9,8 +9,6 @@ import {
 import { OrgContext } from "../../../contexts/OrgContext";
 import connect from "../../../constants/connect";
 import axios from "axios";
-import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
-import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,6 +20,7 @@ type Props = {
 };
 
 const Create = () => {
+  //@ts-ignore
   const { org } = useContext(OrgContext);
   const { address } = useAccount();
   const [campaignDb, setCampaignDb] = useState(null);
@@ -60,7 +59,9 @@ const Create = () => {
     functionName: "createCampaign",
     args: [
       org?.id,
+      //@ts-ignore
       campaignDb?.id,
+      //@ts-ignore
       campaignDb?.target,
       deadline?.getTime() / 1000,
     ],
@@ -77,8 +78,6 @@ const Create = () => {
     hash: data?.hash,
     async onSuccess(tx) {
       //enable save button
-      console.log("written Onchain");
-      console.log(tx.blockHash);
       router.push("/organization/campaign");
     },
   });
@@ -108,6 +107,7 @@ const Create = () => {
     }
   }, [campaignDb, IsRefreshed]);
 
+  //@ts-ignore
   const handleInput = (e) => {
     setCampaign({ ...campaign, [e.target.id]: e.target.value });
   };

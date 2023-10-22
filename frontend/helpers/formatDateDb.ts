@@ -8,7 +8,7 @@ function formatDateDb(dateString: string) {
     hour: "numeric",
     minute: "numeric",
   };
-
+  //@ts-ignore
   return date.toLocaleDateString("en-US", options);
 }
 

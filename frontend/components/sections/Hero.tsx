@@ -9,7 +9,7 @@ const Hero = () => {
       <div className={styles.hero}>
         <div className={styles.upper}>
           <h1 className={styles.intro} style={poppins.style}>
-            Donate for tomorrow's future
+            Donate for tomorrow&apos;s future
           </h1>
           <p className={styles.subtext}>
             Sanctum brings onchain verifiable NGOs on one platform.

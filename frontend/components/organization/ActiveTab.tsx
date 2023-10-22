@@ -1,7 +1,8 @@
 import Link from "next/link";
 import CampaignCard from "./CampaignCard";
+import Campaign from "../../types/campaign";
 
-const ActiveTab = ({ campaigns }) => {
+const ActiveTab = ({ campaigns }: { campaigns: Campaign[] }) => {
   return (
     <>
       {campaigns?.length > 0 ? (

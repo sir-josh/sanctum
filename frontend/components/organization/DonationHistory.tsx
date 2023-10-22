@@ -2,21 +2,26 @@ import { useContractRead, useNetwork } from "wagmi";
 import connect from "../../constants/connect";
 import { ethers } from "ethers";
 import formatDate from "../../helpers/formatDate";
+import Campaign from "../../types/campaign";
+import Donation from "../../types/Donation";
 
-const DonationHistory = ({ campaign }) => {
+const DonationHistory = ({ campaign }: { campaign: Campaign }) => {
   const { chain } = useNetwork();
 
   const { data: donors, isLoading: isLoadingBal } = useContractRead({
+    //@ts-ignore
     address: connect?.sanctum?.[chain?.id]?.address,
+    //@ts-ignore
     abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "getCampaignDonors",
     args: [campaign?.id],
     watch: true,
   });
 
-  const sumDonations = (donations) => {
+  const sumDonations = (donations: Donation[]) => {
     const total = donations.reduce((acc, donation) => {
       return acc + BigInt(donation.amount);
+      //@ts-ignore
     }, 0n);
 
     return parseFloat(

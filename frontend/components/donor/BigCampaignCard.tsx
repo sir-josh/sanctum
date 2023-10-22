@@ -8,8 +8,12 @@ import {
 } from "wagmi";
 import connect from "../../constants/connect";
 import formatDateDb from "../../helpers/formatDateDb";
+import Campaign from "../../types/campaign";
+import campaignImg from "../../public/img/campaign.png";
+import orgImg from "../../public/img/org.jpg";
+import Image from "next/image";
 
-const BigCampaignCard = ({ campaign }) => {
+const BigCampaignCard = ({ campaign }: { campaign: Campaign }) => {
   const queryClient = useQueryClient();
 
   //update db
@@ -59,20 +63,21 @@ const BigCampaignCard = ({ campaign }) => {
 
   return (
     <div className="flex w-full flex-col items-center rounded-md border ">
-      <div className="h-full w-full md:h-[200px] ]">
-        <img
-          src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-          alt="Laptop"
-          className="h-full w-full rounded-md object-cover"
+      <div className="h-full w-full md:h-[200px]">
+        <Image
+          src={campaignImg}
+          alt="Campaign Image"
+          className="h-[200px] w-full rounded-t-md object-cover"
         />
       </div>
+
       <div className="w-full p-4">
         <div className=" w-full">
           <div className=" flex items-center space-x-2">
-            <img
-              className="inline-block h-8 w-8 rounded-full"
-              src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
-              alt="Dan_Abromov"
+            <Image
+              className="inline-block h-8 w-8 rounded-full object-cover"
+              src={orgImg}
+              alt="Org image"
             />
             <span className="flex flex-col">
               <span className="text-[10px] font-medium text-gray-900 flex items-center">

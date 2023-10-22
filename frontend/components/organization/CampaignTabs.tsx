@@ -4,12 +4,13 @@ import { OrgContext } from "../../contexts/OrgContext";
 import { useQuery } from "@tanstack/react-query";
 import CompletedTab from "./CompletedTab";
 import ActiveTab from "./ActiveTab";
+import Campaign from "../../types/campaign";
 
 const CampaignTabs = () => {
   const [selectedTab, setSelectedTab] = useState<string>("Active");
 
   const tabs = ["Active", "Completed"];
-
+  //@ts-ignore
   const { org } = useContext(OrgContext);
 
   const getCampaigns = async () => {
@@ -25,8 +26,12 @@ const CampaignTabs = () => {
   });
 
   //filter campaigns by status
-  const active = campaigns?.filter((d) => d.isActive == true);
-  const completed = campaigns?.filter((d) => d.isActive == false);
+  const active: Campaign[] = campaigns?.filter(
+    (d: Campaign) => d.isActive == true
+  );
+  const completed: Campaign[] = campaigns?.filter(
+    (d: Campaign) => d.isActive == false
+  );
 
   return (
     <div className="max-w-2xl mt-5 rounded-xl  p-4 shadow">

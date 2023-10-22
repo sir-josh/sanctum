@@ -15,6 +15,7 @@ export default async function handler(
     try {
       const org = await prisma.organization.findFirst({
         where: {
+          //@ts-ignore
           owner: address,
         },
         include: {

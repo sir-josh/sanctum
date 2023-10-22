@@ -27,7 +27,7 @@ const Testimonial = () => {
           <div className={styles.cardWrapper}>
             <div className={styles.card}>
               <p className={styles.review}>
-                I don't have to switch chains or swap tokens to donate to
+                I don&apos;t have to switch chains or swap tokens to donate to
                 charity! Amazing!
               </p>
 

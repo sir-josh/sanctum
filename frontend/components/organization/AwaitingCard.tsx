@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { OrgContext } from "../../contexts/OrgContext";
 
 const AwaitingCard = () => {
+  //@ts-ignore
   const { org } = useContext(OrgContext);
 
   return (

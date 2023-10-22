@@ -8,14 +8,18 @@ import { ethers } from "ethers";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CampaignTabs from "./CampaignTabs";
+import Org from "../../types/Org";
 
 const Dashboard = () => {
+  //@ts-ignore
   const { org } = useContext(OrgContext);
   const { address } = useAccount();
   const { chain } = useNetwork();
 
   const { data: usdcBal, isLoading: isLoadingBal } = useContractRead({
+    //@ts-ignore
     address: connect?.ausdc?.[chain?.id]?.address,
+    //@ts-ignore
     abi: connect?.ausdc?.[chain?.id]?.abi,
     functionName: "balanceOf",
     args: [address],
@@ -23,7 +27,9 @@ const Dashboard = () => {
   });
 
   const { data: orgB } = useContractRead({
+    //@ts-ignore
     address: connect?.sanctum?.[chain?.id]?.address,
+    //@ts-ignore
     abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "orgs",
     args: [org?.id],
@@ -80,6 +86,7 @@ const Dashboard = () => {
                     {
                       //@ts-ignore
                       parseFloat(
+                        //@ts-ignore
                         ethers?.formatUnits(orgB[3] || "0", 6)
                       ).toFixed(2)
                     }{" "}

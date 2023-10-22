@@ -5,12 +5,15 @@ import { ethers } from "ethers";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import formatDateDb from "../../helpers/formatDateDb";
+import Donation from "../../types/Donation";
 
 const Dashboard = () => {
   const { address } = useAccount();
   const { chain } = useNetwork();
   const { data: usdcBal, isLoading: isLoadingBal } = useContractRead({
+    //@ts-ignore
     address: connect?.ausdc?.[chain?.id]?.address,
+    //@ts-ignore
     abi: connect?.ausdc?.[chain?.id]?.abi,
     functionName: "balanceOf",
     args: [address],
@@ -29,7 +32,7 @@ const Dashboard = () => {
     queryFn: getDonations,
   });
 
-  const getTotal = (donations) => {
+  const getTotal = (donations: Donation[]) => {
     return donations.reduce(
       (total, donation) => total + Number(donation?.amount),
       0
@@ -39,7 +42,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-y-5">
       <div className="flex justify-between items-center">
-        <h2>Hi {address.substring(0, 8)},</h2>
+        <h2>Hi {address?.substring(0, 8)},</h2>
         <div className="text-right font-semibold">3 STK</div>
       </div>
 
@@ -101,7 +104,7 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 ">
-              {donations?.map((donation) => (
+              {donations?.map((donation: Donation) => (
                 <tr key={donation?.id} className="">
                   <td className="whitespace-nowrap px-4 py-4">
                     <div className="text-sm text-gray-900 ">

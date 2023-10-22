@@ -13,7 +13,7 @@ import {
 } from "wagmi";
 import { ethers } from "ethers";
 import { Raised, Spinner } from "../../../components/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDebounce } from "../../../hooks/useDebounce";
 
 const Donate = () => {
@@ -57,7 +57,9 @@ const Donate = () => {
   });
 
   const { data: usdcBal, isLoading: isLoadingBal } = useContractRead({
+    //@ts-ignore
     address: connect?.ausdc?.[chain?.id]?.address,
+    //@ts-ignore
     abi: connect?.ausdc?.[chain?.id]?.abi,
     functionName: "balanceOf",
     args: [address],
@@ -73,6 +75,7 @@ const Donate = () => {
       abi: connect?.ausdc?.[chain?.id]?.abi,
       functionName: "approve",
       args: [
+        //@ts-ignore
         connect?.sanctum?.[chain?.id]?.address,
         ethers.parseUnits(debouncedAmount || "0", 6),
       ],
@@ -106,6 +109,7 @@ const Donate = () => {
     //@ts-ignore
     abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "donateToCampaign",
+    //@ts-ignore
     value: chain?.id == 44787 ? "0" : ethers.parseEther("2"),
     enabled: false,
     args:

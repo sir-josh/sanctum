@@ -15,6 +15,7 @@ export default async function handler(
     try {
       const donations = await prisma.donation.findMany({
         where: {
+          //@ts-ignore
           donor,
         },
         include: {
