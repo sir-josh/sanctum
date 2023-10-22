@@ -1,45 +1,49 @@
-# Sanctum x Gnosis [Techfiesta]
+# Sanctum  [EthOnline]
 
 Live Demo - [YouTube Video](https://youtu.be/pw_UZUs1FkY) <br />
 Live Link - [Sanctum dApp](https://Sanctum.vercel.app) <br />
-Slides - [Presentation Slides](https://Sanctum.vercel.app/SanctumSlides.pdf)
 
 ## ✨ Description
 
-[Sanctum](https://sanctum-eth.vercel.app) is a decentralized savings app. Sanctum integrates with [Monerium](https://monerium.dev) which allows easy conversion of fiat Euro, USD and GBP into their stablecoin equivalent. Users can then connect and save their stablecoins securely on the Gnosis blockchain with Sanctum.
+[Sanctum](https://sanctum-eth.vercel.app) is a cutting-edge decentralized donation platform that redefines charitable giving and philanthropy, prioritizing transparency, efficiency, and donor empowerment. By leveraging blockchain technology and innovative features like Decentralized Autonomous Organizations (DAOs), SANCTUM creates a secure and transparent ecosystem for donors, while also ensuring the legitimacy of the NGOs receiving support. Here's why SANCTUM is a game-changer in the world of charitable giving:
 
-Our features empowers personal financial habits by:
+## What Makes SANCTUM Unique:
 
-- Allowing users set their locked savings duration
-- Implementing early retrieval penalty fee, which helps guide them on your journey to financial well-being.
-- A gamified earning model that rewards users in RAIN tokens as they meet their savings goals.
-- Visualize their savings goals history.
+### 1. Donating via different chains 
+
+**As donors**, Donations on the Sanctum platform can be made from any blockchain network. This is done securely using Axelar SDK which enables cross-chain communication for web3. When users donate, they earn Sanctum tokens that allow them to participate in the dApp's future and community. Users can donate from the blockchain of their choice, and Sanctum ensures it reaches the beneficiary wallet!
+
+### 2. Decentralized Decision-Making
+
+**Empowerment through DAOs:** Unlike other donation platforms, SANCTUM integrates DAOs, enabling donors to participate in the decision-making process actively. Donors can join or create DAOs related to specific projects or causes. In these DAOs, donors can participate in decision-making, vote on project proposals, and actively oversee how funds are allocated and utilized.
+
+### 3. Authenticating Legitimate NGOs
+
+**Vetted and Verified:** Sanctum solves the problem of fraud in the NGO sector. After due diligence and approval, an NGO mints a soulbound NFT that serves as an on-chain verification. Once verified, an NGO can create campaigns for good cause.
 
 ![Sanctum Dashboard](/public/img/dashboard-screen.png)
 
 ## 💻 How we built Sanctum
 
-We created and deployed 2 smart contracts in Gnosis Chiado:
+We created and deployed 2 smart contracts in Scroll Sepolia:
 
-1. Sanctum 0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c - [View source code](https://github.com/iamendy/Sanctum/blob/main/contracts/Sanctum.sol) | [View on gnosis-chiado scan](https://gnosis-chiado.blockscout.com/address/0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c)
+1. Sanctum 0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c - [View source code](https://github.com/iamendy/Sanctum/blob/main/contracts/Sanctum.sol) | [View on sepolia-blockscout.scroll.io scan](https://gnosis-chiado.blockscout.com/address/0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c)  
 
-2. SanctumToken 0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85 - [View source code](https://github.com/iamendy/Sanctum/blob/main/contracts/SanctumToken.sol) | [View on gnosis-chiado scan](https://gnosis-chiado.blockscout.com/address/0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85)
+2. SanctumToken 0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85 - [View source code](https://github.com/iamendy/Sanctum/blob/main/contracts/SanctumToken.sol) | [View on sepolia-blockscout.scroll.io scan](https://gnosis-chiado.blockscout.com/address/0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85) 
 
 Here are some of the recent transactions on Sanctum:
 
-1. Savings [View txn on Gnosis Chiado](https://gnosis-chiado.blockscout.com/tx/0xb20c4fb6af21901533b19c1ac5ce36a7e2775efcc7049e6f44f747f77927d2e0)
+1. Cregex [View txn on Gnosis Chiado](https://gnosis-chiado.blockscout.com/tx/0xb20c4fb6af21901533b19c1ac5ce36a7e2775efcc7049e6f44f747f77927d2e0) 
 
-2. Break Piggy [View txn on Gnosis Chiado](https://gnosis-chiado.blockscout.com/tx/0x7bea58bee8ba73e866846dd29aa78be8b2ec7cdf5225053f737da67683ce732b)
 
-3. RAIN Token transfers [View on Gnosis Chiado](https://gnosis-chiado.blockscout.com/address/0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85?tab=internal_txns)
-
-This is an original work by our team. We built our solution using: **`NextJs/Typescript`**, **`Wagmi`**, **`Rainbowkit`**, **`Prisma`**, **`TailwindCSS`**, **`Remix`**, **`PostgresSQL`** and **`Monerium SDK`**.
+This is an original work by our team. We built our solution using: **`NextJs/Typescript`**, **`Wagmi`**, **`Rainbowkit`**, **`Prisma`**, **`TailwindCSS`**, **`Remix`**, **`PostgresSQL`** and **`Axelar SDK`**.
 
 ## 🚀 Accomplishments that we're proud of
 
-🍥 Implemented an idea that was birthed from our personal pain point.<br />
-🍥 Deployed our dApp on the Gnosis network which means we will have the best of speed, cost and mobility for our users. <br />
-🍥 Had fun, and learnt a whole lot building our solution. <br />
+🍥 We built Sanctum as a hybrid dApp. It implements PostgreSQL for transactional logic, while the core logic is powered by 2 smart contracts - Santum.sol and Terminal.sol.<br />
+🍥 Sanctum contract is deployed on Scroll, while Terminal contracts are deployed on Filecoin, Celo, and Fantom (for the demo).. <br />
+🍥 We then implemented Axelar to route users' donations from the Terminal on other chains, to Sanctum on Scroll, thereby making our dApp an interchain app. Users can easily donate irrespective of their chain! <br />
+🍥 Santum uses GMP to route tokens from donor's chain to Scroll<br />
 
 ## 📈 What's next for Sanctum
 
@@ -68,22 +72,21 @@ Note: Recommend using [Remix](https://remix.ethereum.org) for quick smart contra
 
 5. run `cp .env.example .env`
 
-6. Update `DATABASE_URL` from Railway on the .env file
+6. Update `DATABASE_URL` and `NEXT_PUBLIC_WC_PROJECT_ID` from Railway on the .env file
 
-7. Update your Monerium `NEXT_PUBLIC_MONERIUM_CLIENT_ID` and `NEXT_PUBLIC_MONERIUM_CLIENT_SECRET` on the .env file
 
-8. Run `npx prisma migrate dev` to push migrations to the database
+7. Run `npx prisma migrate dev` to push migrations to the database
 
-9. Run `yarn dev` to start the DApp on your development environment.
+8. Run `yarn dev` to start the DApp on your development environment.
 
-10. You can connect your wallet and enjoy a world of limitless possibilities.
+9. You can connect your wallet and enjoy a world of limitless possibilities.
     ---- transactions ----
 
-11. Sanctum Scroll- https://sepolia.scrollscan.dev/address/0x60a9cf1599dd6b5be36b0cfb60323b6a68a0a03f
-12. Terminal Filecoin - https://calibration.filfox.info/en/address/t410fqlwkhc7il3e4bkkvl5agy4bvg6ba3oedzxnjeeq?t=1
-13. Terminal Polygon Zk -
+10. Sanctum Scroll- https://sepolia.scrollscan.dev/address/0x60a9cf1599dd6b5be36b0cfb60323b6a68a0a03f
+11. Terminal Filecoin - https://calibration.filfox.info/en/address/t410fqlwkhc7il3e4bkkvl5agy4bvg6ba3oedzxnjeeq?t=1
+12. Terminal Polygon Zk -
 
-14. Campaign donation
+13. Campaign donation
 
     1. On Scroll - https://sepolia.scrollscan.dev/tx/0xdc3727d45917aa631f9603569422f937165a9abc68b8a8edeecc9f94880ac5ca
     2. Filecoin To Scroll - https://testnet.axelarscan.io/gmp/0x520e607a2d79d3e64d56dd05b1be78b3e08dd3c840a68e7c800e97a8132b6d99
