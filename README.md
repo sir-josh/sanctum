@@ -1,6 +1,6 @@
 # Sanctum  [EthOnline]
 
-Live Demo - [YouTube Video](https://youtu.be/pw_UZUs1FkY) <br />
+Live Demo - **For live the demo, check the ABOUT of this GitHub repo on the right pane** <br />
 Live Link - [Sanctum dApp](https://Sanctum.vercel.app) <br />
 
 ## ✨ Description
