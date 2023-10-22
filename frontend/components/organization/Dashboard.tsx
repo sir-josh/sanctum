@@ -47,10 +47,9 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-y-5">
       <div className="flex justify-between items-center">
-        <h2 className="flex items-center gap-x-1">
+        <h2 className="flex items-center gap-x-1 font-semibold">
           {org?.name} {org?.isVerified && <Verified />}{" "}
         </h2>
-        <div className="text-right">3 STK</div>
       </div>
 
       {org?.isVerified ? (
@@ -65,7 +64,7 @@ const Dashboard = () => {
                   <b>
                     {parseFloat(
                       //@ts-ignore
-                      ethers?.formatUnits(usdcBal || "0.1", 6)
+                      ethers?.formatUnits(usdcBal || "0", 6)
                     ).toFixed(2)}
                   </b>
                   <p className="text-[14px]">aUSDC balance </p>
@@ -95,7 +94,7 @@ const Dashboard = () => {
                   <Pending />
                 </div>
                 <div>
-                  {campaignCt}
+                  <b>{campaignCt}</b>
                   <p className="text-[14px]"> Active campaigns</p>
                 </div>
               </div>

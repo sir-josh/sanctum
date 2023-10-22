@@ -16,7 +16,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               <Link href="/organization">
                 <li
                   className={`${
-                    router.asPath == "/organization" &&
+                    (router.asPath == "/organization" ||
+                      router.asPath == "/organization/create") &&
                     "border-b-2 border border-b-black"
                   } rounded-md py-3 px-2`}
                 >

@@ -3,6 +3,7 @@ import { OrgContext } from "../../contexts/OrgContext";
 import {
   useAccount,
   useContractWrite,
+  useNetwork,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
@@ -15,6 +16,7 @@ const MintCard = () => {
 
   const queryClient = useQueryClient();
   const { address } = useAccount();
+  const { chain } = useNetwork();
 
   const verifyOrg = async (orgId: string) => {
     const { data } = await axios.post(`/api/organization/verify-org`, {
@@ -35,9 +37,9 @@ const MintCard = () => {
 
   const { config } = usePrepareContractWrite({
     //@ts-ignore
-    address: connect?.sanctum?.address,
+    address: connect?.sanctum?.[chain?.id]?.address,
     //@ts-ignore
-    abi: connect?.sanctum?.abi,
+    abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "verifyOrg",
     args: [org?.id],
   });

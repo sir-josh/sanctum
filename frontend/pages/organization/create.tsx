@@ -1,17 +1,15 @@
 import axios from "axios";
-import { useEffect, useState, forwardRef } from "react";
+import { useEffect, useState } from "react";
 import connect from "../../constants/connect";
 import { useRouter } from "next/router";
 import {
   useAccount,
-  useNetwork,
-  useContractRead,
   useContractWrite,
+  useNetwork,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
 import { Spinner } from "../../components/icons";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Dashboard = () => {
   const [org, setOrg] = useState({ name: "", description: "" });
@@ -20,6 +18,7 @@ const Dashboard = () => {
 
   const { address } = useAccount();
   const router = useRouter();
+  const { chain } = useNetwork();
 
   const handleInput = (e: any) => {
     setOrg({ ...org, [e.target.id]: e.target.value });
@@ -28,9 +27,9 @@ const Dashboard = () => {
   const { config, refetch, isLoading, isError, error, isSuccess } =
     usePrepareContractWrite({
       //@ts-ignore
-      address: connect?.sanctum?.address,
+      address: connect?.sanctum?.[chain?.id]?.address,
       //@ts-ignore
-      abi: connect?.sanctum?.abi,
+      abi: connect?.sanctum?.[chain?.id]?.abi,
       functionName: "registerOrg",
       args: [orgId],
       enabled: false,
@@ -85,8 +84,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <ConnectButton />
-      <h3 className="font-semibold">Enroll your Organization | {orgId}</h3>
+      <h3 className="font-semibold">Enroll your Organization </h3>
 
       {isCreated && !isWaitingTx ? (
         <div className="w-[50%] mt-4">

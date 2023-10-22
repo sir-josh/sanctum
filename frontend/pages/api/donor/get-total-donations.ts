@@ -17,6 +17,9 @@ export default async function handler(
         where: {
           donor,
         },
+        include: {
+          campaign: true,
+        },
       });
 
       res.status(200).json(donations);

@@ -33,6 +33,11 @@ const Donate = () => {
     return data;
   };
 
+  const { data: campaign } = useQuery({
+    queryKey: ["campaignS", router],
+    queryFn: fetchCampaigns,
+  });
+
   const recordDonationdb = async () => {
     const { data } = await axios.post("/api/donor/donate-campaign", {
       campaignId: router?.query?.id,
@@ -49,11 +54,6 @@ const Donate = () => {
       console.log(d);
       console.log("write to db!");
     },
-  });
-
-  const { data: campaign } = useQuery({
-    queryKey: ["campaign", router],
-    queryFn: fetchCampaigns,
   });
 
   const { data: usdcBal, isLoading: isLoadingBal } = useContractRead({
@@ -103,10 +103,11 @@ const Donate = () => {
     //@ts-ignore
     abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "donateToCampaign",
-    value: ethers.parseEther("2"),
-    enabled: false,
+    value: chain?.id == 44787 ? "0" : ethers.parseEther("2"),
+    enabled: true,
     args:
-      chain.id == 44787
+      //if user is on Celo
+      chain?.id == 44787
         ? [
             campaign?.id,
             Number(ethers.parseUnits(debouncedAmount || "0", 6) || "0"),
@@ -136,44 +137,46 @@ const Donate = () => {
 
   return (
     <div>
-      <h3 className="mb-4 font-medium">Donate Now</h3>
-      <BigCampaignCard campaign={campaign} />
+      <h3 className="mb-4 font-medium">Donate Now </h3>
+      <div className="flex gap-x-8">
+        <BigCampaignCard campaign={campaign} />
 
-      <div className="mt-5 mb-1">
-        <div className="flex justify-between">
-          <div className="w-[50%]">
-            <p className="flex gap-x-1">
-              <Raised />
-              {
-                //@ts-ignore
-                parseFloat(ethers?.formatUnits(usdcBal || "0", 6)).toFixed(2)
-              }{" "}
-              aUSDC
-            </p>
+        <div className="mt-1 mb-1 w-full">
+          <div className="flex justify-between">
+            <div className="w-[80%]">
+              <p className="flex gap-x-1">
+                <Raised />
+                {
+                  //@ts-ignore
+                  parseFloat(ethers?.formatUnits(usdcBal || "0", 6)).toFixed(2)
+                }{" "}
+                aUSDC
+              </p>
 
-            <div className="mt-5 flex flex-col gap-y-5">
-              <div>
-                <label htmlFor="amount" className="text-base  text-gray-900">
-                  Amount
-                </label>
-                <div className="mt-1">
-                  <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="text"
-                    placeholder="5"
-                    id="amount"
-                    onChange={(e) => setAmount(e.target.value)}
-                  ></input>
+              <div className="mt-5 flex flex-col gap-y-5">
+                <div>
+                  <label htmlFor="amount" className="text-base  text-gray-900">
+                    Amount
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      type="text"
+                      placeholder="5"
+                      id="amount"
+                      onChange={(e) => setAmount(e.target.value)}
+                    ></input>
+                  </div>
                 </div>
-              </div>
 
-              <button
-                onClick={() => approve?.()}
-                type="button"
-                className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
-              >
-                Donate
-              </button>
+                <button
+                  onClick={() => approve?.()}
+                  type="button"
+                  className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                >
+                  Donate
+                </button>
+              </div>
             </div>
           </div>
         </div>

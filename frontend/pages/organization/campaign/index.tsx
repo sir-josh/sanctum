@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 const Index = () => {
   const { org } = useContext(OrgContext);
 
-  //getter for fetching campaigns
+  //getter  for fetching campaigns
   const fetchCampaigns = async () => {
     const { data } = await axios.get(
       `/api/organization/get-org-campaigns?orgId=${org?.id}`
@@ -23,6 +23,21 @@ const Index = () => {
     queryKey: ["campaigns", org],
     queryFn: fetchCampaigns,
   });
+
+  if (!org) {
+    return (
+      <div className="flex flex-col gap-y-3">
+        <h3>Hi there, </h3>
+        <p>You don't seem to have a verified organization yet</p>
+        <Link
+          href={"/organization/create"}
+          className="px-3 py-2 bg-black text-white border-b-2 border rounded-md w-fit"
+        >
+          Create an account
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div>

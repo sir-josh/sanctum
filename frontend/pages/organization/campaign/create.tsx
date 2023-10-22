@@ -92,7 +92,6 @@ const Create = () => {
       address,
     });
 
-    data && console.log(data);
     setIsCreated(true);
     setCampaignDb(data);
   };

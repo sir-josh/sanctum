@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   useAccount,
   useContractWrite,
+  useNetwork,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
@@ -12,7 +13,7 @@ import { useRouter } from "next/router";
 
 const ApproveCard = ({ org }) => {
   const queryClient = useQueryClient();
-
+  const { chain } = useNetwork();
   const approveOrg = async ({
     orgId,
     orgOwner,
@@ -38,9 +39,9 @@ const ApproveCard = ({ org }) => {
 
   const { config } = usePrepareContractWrite({
     //@ts-ignore
-    address: connect?.sanctum?.address,
+    address: connect?.sanctum?.[chain?.id]?.address,
     //@ts-ignore
-    abi: connect?.sanctum?.abi,
+    abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "approveOrg",
     args: [org?.id],
   });

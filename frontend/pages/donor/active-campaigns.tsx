@@ -23,7 +23,7 @@ const ActiveCampaigns = () => {
       <div>
         <h3 className="font-medium mb-4">Active campaigns</h3>
 
-        <div className="grid grid-cols-2 gap-x-8">
+        <div className="grid grid-cols-2 gap-8 ">
           {isLoading ? (
             <Spinner />
           ) : campaigns?.length > 0 ? (
