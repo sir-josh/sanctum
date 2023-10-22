@@ -12,6 +12,7 @@ import DonorLayout from "../components/layouts/DonorLayout";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+
 export const inter = Inter({
   subsets: ["latin"],
   variable: "--inter",

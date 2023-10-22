@@ -21,7 +21,7 @@ const Donate = () => {
   const { chain } = useNetwork();
   const { address } = useAccount();
   const [amount, setAmount] = useState("");
-  const [isApproved, setIsApproved] = useState(false);
+  const [hasDonated, setHasDonated] = useState(false);
 
   const debouncedAmount = useDebounce<string>(amount, 500);
 
@@ -50,9 +50,9 @@ const Donate = () => {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: recordDonationdb,
-    onSuccess: (d) => {
-      console.log(d);
-      console.log("write to db!");
+    onSuccess(d) {
+      setAmount("");
+      setHasDonated(true);
     },
   });
 
@@ -83,28 +83,31 @@ const Donate = () => {
     write: approve,
     isLoading: isApproving,
     data: approveData,
+    isSuccess: isApprovedL,
   } = useContractWrite(approveConfig);
 
   const { isLoading: isApprovingTx } = useWaitForTransaction({
     hash: approveData?.hash,
+    confirmations: 2,
     async onSuccess(tx) {
-      if (tx) {
-        setIsApproved(true);
-        await refetch();
-        donate?.();
-      }
+      await refetch();
+      donate?.();
     },
   });
 
   //---- donate ----//
-  const { config: saveConfig, refetch } = usePrepareContractWrite({
+  const {
+    config: saveConfig,
+    refetch,
+    isSuccess,
+  } = usePrepareContractWrite({
     //@ts-ignore
     address: connect?.sanctum?.[chain?.id]?.address,
     //@ts-ignore
     abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "donateToCampaign",
     value: chain?.id == 44787 ? "0" : ethers.parseEther("2"),
-    enabled: true,
+    enabled: false,
     args:
       //if user is on Celo
       chain?.id == 44787
@@ -129,9 +132,9 @@ const Donate = () => {
 
   const { isLoading: isWaitingSaveTx } = useWaitForTransaction({
     hash: saveData?.hash,
-    onSuccess(tx) {
+    onSuccess() {
+      console.log("Donation tx Confirmed!");
       mutate();
-      console.log("Successful!!!");
     },
   });
 
@@ -159,17 +162,29 @@ const Donate = () => {
               </div>
 
               <div className="mt-5 flex flex-col gap-y-5">
+                {hasDonated && (
+                  <div className=" animate-bounce bg-green-100 text-green-600 px-2 p-2 text-center">
+                    <b>Thanks for your donation 🎉</b>
+                  </div>
+                )}
                 <div>
                   <label htmlFor="amount" className="text-base  text-gray-900">
                     Amount
                   </label>
                   <div className="mt-1">
                     <input
-                      disabled={isLoading || isApproving || isApprovingTx}
+                      disabled={
+                        isWaitingSaveTx ||
+                        isLoading ||
+                        isApproving ||
+                        isApprovingTx ||
+                        isSaving
+                      }
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="text"
                       placeholder="5"
                       id="amount"
+                      value={amount}
                       onChange={(e) => setAmount(e.target.value)}
                     ></input>
                   </div>
@@ -180,7 +195,11 @@ const Donate = () => {
                   type="button"
                   className=" w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
-                  {isLoading || isApproving || isApprovingTx ? (
+                  {isWaitingSaveTx ||
+                  isLoading ||
+                  isApproving ||
+                  isSaving ||
+                  isApprovingTx ? (
                     <Spinner load />
                   ) : (
                     "Donate"

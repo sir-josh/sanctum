@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Verified } from "../icons";
+import { Spinner, Verified } from "../icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   useContractRead,
@@ -100,7 +100,13 @@ const BigCampaignCard = ({ campaign }) => {
                   campaign?.isActive ? "bg-black" : "bg-black/20"
                 } px-3 py-2 rounded-lg text-white`}
               >
-                {campaign?.isActive ? "Withdraw" : "Ended"}
+                {isWithdrawing || isApprovingTx ? (
+                  <Spinner load />
+                ) : !campaign?.isActive ? (
+                  "Ended"
+                ) : (
+                  "Withdraw"
+                )}
               </button>
             )}
           </div>

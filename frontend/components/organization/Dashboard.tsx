@@ -55,7 +55,7 @@ const Dashboard = () => {
       {org?.isVerified ? (
         <>
           <div>
-            <div className="flex items-center gap-x-4">
+            <div className="flex items-center justify-between max-w-2xl">
               <div className="bg-black/90 text-white rounded-xl p-4 shadow flex gap-x-2 items-center">
                 <div className=" w-8 h-8 flex items-center justify-center rounded-full">
                   <Raised />
