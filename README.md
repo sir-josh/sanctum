@@ -5,7 +5,7 @@ Live Link - [Sanctum dApp](https://Sanctum.vercel.app) <br />
 
 ## ✨ Description
 
-[Sanctum](https://sanctum-eth.vercel.app) is a cutting-edge decentralized donation platform that redefines charitable giving and philanthropy, prioritizing transparency, efficiency, and donor empowerment. By leveraging blockchain technology and innovative features like Decentralized Autonomous Organizations (DAOs), SANCTUM creates a secure and transparent ecosystem for donors, while also ensuring the legitimacy of the NGOs receiving support. Here's why SANCTUM is a game-changer in the world of charitable giving:
+[Sanctum](https://sanctum-eth.vercel.app) is a cutting-edge decentralized donation platform that redefines charitable giving and philanthropy, prioritizing transparency, efficiency, and donor empowerment. By leveraging blockchain technology and innovative features like Decentralized Autonomous Organizations (DAOs), SANCTUM creates a secure and transparent ecosystem for donors to enable them to donate from different chains, while also ensuring the legitimacy of the NGOs receiving support. Here's why SANCTUM is a game-changer in the world of charitable giving:
 
 ## What Makes SANCTUM Unique:
 
