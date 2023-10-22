@@ -29,9 +29,9 @@ SANCTUM creates a secure and transparent ecosystem for donors to enable them to 
 
 We created and deployed 2 smart contracts in Scroll Sepolia:
 
-1. Sanctum 0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c - [View source code](https://github.com/iamendy/Sanctum/blob/main/contracts/Sanctum.sol) | [View on sepolia-blockscout.scroll.io scan](https://gnosis-chiado.blockscout.com/address/0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c)  
+1. Sanctum 0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c - [View source code](https://github.com/iamendy/Sanctum/blob/main/contracts/Sanctum.sol) | [View on sepolia-blockscout.scroll.io scan](https://sepolia.scrollscan.dev/tx/0xdc3727d45917aa631f9603569422f937165a9abc68b8a8edeecc9f94880ac5ca)  
 
-2. SanctumToken 0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85 - [View source code](https://github.com/iamendy/Sanctum/blob/main/contracts/SanctumToken.sol) | [View on sepolia-blockscout.scroll.io scan](https://gnosis-chiado.blockscout.com/address/0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85) 
+2. SanctumToken 0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85 - [View source code](https://github.com/iamendy/Sanctum/blob/main/contracts/SanctumToken.sol) | [View on sepolia-blockscout.scroll.io scan](https://sepolia.scrollscan.dev/tx/0xdc3727d45917aa631f9603569422f937165a9abc68b8a8edeecc9f94880ac5ca) 
 
 Here are some of the recent transactions on Sanctum:
 
