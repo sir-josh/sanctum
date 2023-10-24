@@ -5,9 +5,9 @@ chain Id to dynamically link the smart contracts */
 const connect = {
   //---- Sanctum ----//
   sanctum: {
-    //scroll
+    //Polygon
     534351: {
-      address: "0x60a9cf1599dD6B5Be36b0CFB60323B6a68A0a03F",
+      address: "0x0B226f1211fA1346eA6c71B5bBEC6296d2616000",
       abi: [
         {
           inputs: [
@@ -860,9 +860,9 @@ const connect = {
     },
   },
   ausdc: {
-    //scroll
+    //Polygon
     534351: {
-      address: "0x254d06f33bDc5b8ee05b2ea472107E300226659A",
+      address: "0x2c852e740B62308c46DD29B982FBb650D063Bd07",
       abi: [
         {
           inputs: [

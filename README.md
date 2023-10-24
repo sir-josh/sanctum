@@ -11,7 +11,7 @@ SANCTUM creates a secure and transparent ecosystem for donors and NGOs. Users ca
 
 When users donate, they earn Sanctum tokens that allow them to participate in the dApp's future and community.
 
-![Sanctum Dashboard](/public/img/dashboard-screen.png)
+![Sanctum Dashboard](https://sanctum-dapp.vercel.app/public/img/sanctum-dashboard.png)
 
 ## 💻 How we built Sanctum
 
@@ -37,6 +37,6 @@ This is an original work by our team. We built our solution using: **`NextJs/Typ
 
 ## 🚀 Accomplishments that we're proud of
 
-🍥 We built Sanctum as a hybrid dApp. It implements PostgreSQL for transactional logic, while the core logic is powered by 2 smart contracts - Santum.sol and Terminal.sol.<br />
-🍥 Sanctum contract is deployed on Polygon, while Terminal contracts are deployed on Celo, and Fantom (for the demo).. <br />
-🍥 We then implemented Axelar to route users' donations from the Terminal on other chains, to Sanctum on Polygon. This allow users easily donate irrespective of their chain! <br />
+🎉 We built Sanctum as a hybrid dApp. It implements PostgreSQL for transactional logic, while the core logic is powered by 2 smart contracts - Santum.sol and Terminal.sol.<br />
+🎉 Sanctum contract is deployed on Polygon for speed and security, while Terminal contracts are deployed on Celo, and Fantom (for the demo).. <br />
+🎉 We then implemented Axelar to route users' donations from the Terminal on other chains, to Sanctum on Polygon. This allow users easily donate irrespective of their chain! <br />
