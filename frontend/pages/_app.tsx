@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import type { AppProps } from "next/app";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
@@ -17,6 +17,7 @@ import DonorLayout from "../components/layouts/DonorLayout";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -33,15 +34,13 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [publicProvider()]
 );
 
-const { connectors } = getDefaultWallets({
-  appName: "Sanctum",
-  projectId: projectId,
-  chains,
+const connectors = new MetaMaskConnector({
+  chains: chains,
 });
 
 const wagmiConfig = createConfig({
+  connectors: [connectors],
   autoConnect: true,
-  connectors,
   publicClient,
   webSocketPublicClient,
 });
