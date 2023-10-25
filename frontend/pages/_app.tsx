@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
-import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import type { AppProps } from "next/app";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
@@ -34,12 +34,14 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [publicProvider()]
 );
 
-const connectors = new MetaMaskConnector({
-  chains: chains,
+const { connectors } = getDefaultWallets({
+  appName: "Sanctum",
+  chains,
+  projectId,
 });
 
 const wagmiConfig = createConfig({
-  connectors: [connectors],
+  connectors,
   autoConnect: true,
   publicClient,
   webSocketPublicClient,
