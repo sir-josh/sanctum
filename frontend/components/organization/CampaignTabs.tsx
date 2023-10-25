@@ -21,7 +21,7 @@ const CampaignTabs = () => {
   };
 
   const { data: campaigns } = useQuery({
-    queryKey: ["campaigns"],
+    queryKey: ["campaigns", org],
     queryFn: getCampaigns,
   });
 
