@@ -8,7 +8,6 @@ import { ethers } from "ethers";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CampaignTabs from "./CampaignTabs";
-import Org from "../../types/Org";
 
 const Dashboard = () => {
   //@ts-ignore

@@ -1,12 +1,8 @@
-import { Pending, Spinner } from "../../components/icons";
+import { Spinner } from "../../components/icons";
 import Link from "next/link";
 import { useContext } from "react";
 import { OrgContext } from "../../contexts/OrgContext";
-import {
-  AwaitingCard,
-  Dashboard,
-  MintCard,
-} from "../../components/organization";
+import { AwaitingCard, Dashboard } from "../../components/organization";
 
 const Index = () => {
   //@ts-ignore
