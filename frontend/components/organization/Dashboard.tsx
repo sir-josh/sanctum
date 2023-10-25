@@ -27,9 +27,9 @@ const Dashboard = () => {
 
   const { data: orgB } = useContractRead({
     //@ts-ignore
-    address: connect?.sanctum?.[chain?.id]?.address,
+    address: connect?.sanctum?.[1442]?.address,
     //@ts-ignore
-    abi: connect?.sanctum?.[chain?.id]?.abi,
+    abi: connect?.sanctum?.[1442]?.abi,
     functionName: "orgs",
     args: [org?.id],
     watch: true,
