@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className={styles.footerSection}>
       <div className={styles.copy}>
-        <span>&copy; EthOnline - Sanctum 2023.</span>
+        <span>&copy; Polygon X Sanctum 2023.</span>
       </div>
     </footer>
   );

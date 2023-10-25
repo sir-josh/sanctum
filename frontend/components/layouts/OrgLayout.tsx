@@ -47,9 +47,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           ) : (
             <div className="card text-center w-[70%]">
               <h3 className="font-bold text-xl text-red-400">Oops!</h3>
-              <p>
-                The Organization section is only accessble on Scroll Network.
-              </p>
+              <p>The Organization section is only accessble on Polygon Zk.</p>
             </div>
           )}
         </div>
