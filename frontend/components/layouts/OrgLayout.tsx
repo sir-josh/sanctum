@@ -38,7 +38,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </ul>
           </aside>
 
-          {chain?.id == 534351 ? (
+          {chain?.id == 1442 ? (
             <OrgContextProvider>
               <main className="card w-[70%]">
                 <section>{children}</section>

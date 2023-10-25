@@ -4,6 +4,7 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import type { AppProps } from "next/app";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
+  polygonZkEvmTestnet,
   polygonMumbai,
   celoAlfajores,
   filecoinCalibration,
@@ -28,7 +29,7 @@ const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string;
 const queryClient = new QueryClient();
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [polygonMumbai, celoAlfajores, filecoinCalibration],
+  [polygonZkEvmTestnet, polygonMumbai, celoAlfajores, filecoinCalibration],
   [publicProvider()]
 );
 
@@ -55,7 +56,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       {isLoaded && (
         <WagmiConfig config={wagmiConfig}>
-          <RainbowKitProvider chains={chains}>
+          <RainbowKitProvider chains={chains} modalSize="compact">
             <QueryClientProvider client={queryClient}>
               <main className={`${inter.className}`}>
                 <Layout>

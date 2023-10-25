@@ -11,7 +11,7 @@ SANCTUM creates a secure and transparent ecosystem for donors and NGOs. Users ca
 
 When users donate, they earn Sanctum tokens that allow them to participate in the dApp's future and community.
 
-![Sanctum Dashboard](https://sanctum-dapp.vercel.app/public/img/sanctum-dashboard.png)
+![Sanctum Dashboard](https://sanctum-dapp.vercel.app/img/sanctum-dashboard.png)
 
 ## 💻 How we built Sanctum
 

@@ -110,19 +110,19 @@ const Donate = () => {
     abi: connect?.sanctum?.[chain?.id]?.abi,
     functionName: "donateToCampaign",
     //@ts-ignore
-    value: chain?.id == 534351 ? "0" : ethers.parseEther("2"),
+    value: chain?.id == 1442 ? "0" : ethers.parseEther("2"),
     enabled: false,
     args:
-      //if user is on Scroll
-      chain?.id == 534351
+      //if user is on PolygonZk
+      chain?.id == 1442
         ? [
             campaign?.id,
             Number(ethers.parseUnits(debouncedAmount || "0", 6) || "0"),
           ]
         : //else use Axelar to route donation
           [
-            "scroll",
-            connect?.sanctum?.[534351]?.address,
+            "polygon-zkevm",
+            connect?.sanctum?.[1442]?.address,
             "aUSDC",
             Number(ethers.parseUnits(debouncedAmount || "0", 6) || "0"),
             campaign?.id,
