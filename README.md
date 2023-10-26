@@ -1,13 +1,13 @@
 # Sanctum X Polygon [DoraHacks]
 
-Live Demo - **For live the demo, check the ABOUT of this GitHub repo on the right pane** <br />
-Live Link - [Sanctum dApp](https://Sanctum-dapp.vercel.app) <br />
+Live Demo - [View on YouTube](https://www.youtube.com/watch?v=3U5IUajMpEc) <br />
+dAPP Link - [Sanctum dApp](https://Sanctum-dapp.vercel.app) <br />
 
 ## ✨ Description
 
-[Sanctum](https://sanctum-dapp.vercel.app) combines the speed of Polygon and the interoperability of Axelar to allow users to donate to any cause across multiple chains.
-
 SANCTUM creates a secure and transparent ecosystem for donors and NGOs. Users can donate from the blockchain of their choice, and Sanctum ensures it reaches the beneficiary wallet!
+
+[Sanctum](https://sanctum-dapp.vercel.app) combines the speed of Polygon and the interoperability of Axelar to allow users to donate to any cause across multiple chains.
 
 When users donate, they earn Sanctum tokens that allow them to participate in the dApp's future and community.
 
@@ -15,28 +15,17 @@ When users donate, they earn Sanctum tokens that allow them to participate in th
 
 ## 💻 How we built Sanctum
 
-We created and deployed 2 smart contracts on Polygon:
+We created and deployed 2 smart contracts on Polygon zkEVM,and terminals on Mumbai, CELO, and FVM:
 
-1. Sanctum 0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c - [View on mumbai-scan](https://gnosis-chiado.blockscout.com/address/0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c)
+1. Sanctum Polygon zkEVM- [view on zk-polygonscan](https://testnet-zkevm.polygonscan.com/address/0x242765946803a74dea7F45F55575DDd68eC4b0e5)
 
-2. SanctumToken 0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85 - [View on mumbai-scan](https://gnosis-chiado.blockscout.com/address/0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c)
+2. Santum Verification Badge - [view on zk-polygonscan](https://testnet-zkevm.polygonscan.com/token/0xa8cd45654da46056803e86d98dc6c697efe56fc1)
 
 Here are some of the recent transactions on Sanctum:
 
-1. Sanctum Polygon- https://sepolia.scrollscan.dev/address/0x60a9cf1599dd6b5be36b0cfb60323b6a68a0a03f
-2. Terminal Celo - https://calibration.filfox.info/en/address/t410fqlwkhc7il3e4bkkvl5agy4bvg6ba3oedzxnjeeq?t=1
-3. Terminal Fantom -https://calibration.filfox.info/en/address/t410fqlwkhc7il3e4bkkvl5agy4bvg6ba3oedzxnjeeq?t=1
-4. Campaign donation
+1.  Donation on Polygon zkEVM - [view on zk-polygonscan](https://testnet-zkevm.polygonscan.com/tx/0x1cd3e3589e4d200b740ec574bb59a0b6bf889f4aa02824114f56f80201bc42be)
+2.  Donation from Celo To Polygon zkEVM - [view donation tx](https://alfajores.celoscan.io/tx/0x04ae4399375a64096608950d2038afbee540e9b9154c4d3303b6289c6c77b8b2)
 
-   1. On Polygon - https://sepolia.scrollscan.dev/tx/0xdc3727d45917aa631f9603569422f937165a9abc68b8a8edeecc9f94880ac5ca
-   2. Celo To Polygon - https://testnet.axelarscan.io/gmp/0x520e607a2d79d3e64d56dd05b1be78b3e08dd3c840a68e7c800e97a8132b6d99
-
-5. Campaign fund Withdrawal - https://sepolia.scrollscan.dev/tx/0x9fdfdeb12896748ed2c8038f220a3a25638a1a0b04bd7a891ebcb50b8c0f7fb4
+3.  Campaign fund Withdrawal - [view on zk-polygonscan](https://testnet-zkevm.polygonscan.com/tx/0xead9be033c9f672b20efe32f92d6e8d92d66321bb8e6f3ad0002b3b5eefa2521)
 
 This is an original work by our team. We built our solution using: **`NextJs/Typescript`**, **`Wagmi`**, **`Rainbowkit`**, **`Prisma`**, **`TailwindCSS`**, **`Remix`**, **`PostgresSQL`** and **`Axelar SDK`**.
-
-## 🚀 Accomplishments that we're proud of
-
-🎉 We built Sanctum as a hybrid dApp. It implements PostgreSQL for transactional logic, while the core logic is powered by 2 smart contracts - Santum.sol and Terminal.sol.<br />
-🎉 Sanctum contract is deployed on Polygon for speed and security, while Terminal contracts are deployed on Celo, and Fantom (for the demo).. <br />
-🎉 We then implemented Axelar to route users' donations from the Terminal on other chains, to Sanctum on Polygon. This allow users easily donate irrespective of their chain! <br />
